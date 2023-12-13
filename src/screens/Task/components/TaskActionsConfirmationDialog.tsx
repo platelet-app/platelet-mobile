@@ -3,7 +3,13 @@ import { DatePickerModal, TimePickerModal } from "react-native-paper-dates";
 import { Button, Dialog, Portal, TextInput } from "react-native-paper";
 import { TaskUpdateKey } from "./TaskActions";
 import moment from "moment";
-import { TouchableOpacity, View } from "react-native";
+import {
+    Keyboard,
+    KeyboardEvent,
+    Platform,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import TaskDateTimeTextInput from "./TaskDateTimeTextInput";
 
 type Value = {
@@ -86,6 +92,31 @@ const TaskActionsConfirmationDialog: React.FC<
     );
     const [timePickerOpen, setTimePickerOpen] = React.useState(false);
     const [datePickerOpen, setDatePickerOpen] = React.useState(false);
+
+    const [keyboardHeight, setKeyboardHeight] = React.useState(0);
+
+    React.useEffect(() => {
+        if (Platform.OS === "ios") {
+            const showSubscription = Keyboard.addListener(
+                "keyboardDidShow",
+                (e: KeyboardEvent) => {
+                    setKeyboardHeight(e.endCoordinates.height);
+                }
+            );
+            const hideSubscription = Keyboard.addListener(
+                "keyboardDidHide",
+                () => {
+                    setKeyboardHeight(0);
+                }
+            );
+
+            return () => {
+                showSubscription.remove();
+                hideSubscription.remove();
+            };
+        }
+    }, []);
+
     const nameValue = React.useRef(startingNameValue || "");
 
     const setNameValue = (value: string) => {
@@ -108,7 +139,11 @@ const TaskActionsConfirmationDialog: React.FC<
 
     return (
         <Portal>
-            <Dialog visible={open} onDismiss={onClose}>
+            <Dialog
+                style={{ marginBottom: keyboardHeight || 0 }}
+                visible={open}
+                onDismiss={onClose}
+            >
                 <Dialog.Title>
                     {humanReadableConfirmation(taskKey, nullify)}
                 </Dialog.Title>

@@ -17,7 +17,7 @@ import * as moment from "moment";
 import "moment/locale/en-gb";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { initialiseApp } from "./src/redux/initialise/initialiseActions";
-import { useColorScheme } from "react-native";
+import { useColorScheme, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import DashboardHeader from "./src/screens/Dashboard/components/DashboardHeader";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -164,24 +164,30 @@ const Main = () => {
             theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
             <StatusBar translucent backgroundColor="transparent" />
-            <Tab.Navigator initialRouteName="InProgressStack">
-                <Tab.Screen
-                    name="InProgressStack"
-                    component={InProgressStack}
-                    options={{
-                        tabBarIcon: "compass-outline",
-                        tabBarLabel: "In Progress",
-                    }}
-                />
-                <Tab.Screen
-                    name="CompletedStack"
-                    component={CompletedStack}
-                    options={{
-                        tabBarIcon: "check-circle-outline",
-                        tabBarLabel: "Completed",
-                    }}
-                />
-            </Tab.Navigator>
+            <KeyboardAvoidingView
+                enabled={Platform.OS === "ios"}
+                behavior="padding"
+                style={{ flex: 1 }}
+            >
+                <Tab.Navigator initialRouteName="InProgressStack">
+                    <Tab.Screen
+                        name="InProgressStack"
+                        component={InProgressStack}
+                        options={{
+                            tabBarIcon: "compass-outline",
+                            tabBarLabel: "In Progress",
+                        }}
+                    />
+                    <Tab.Screen
+                        name="CompletedStack"
+                        component={CompletedStack}
+                        options={{
+                            tabBarIcon: "check-circle-outline",
+                            tabBarLabel: "Completed",
+                        }}
+                    />
+                </Tab.Navigator>
+            </KeyboardAvoidingView>
         </NavigationContainer>
     );
 };

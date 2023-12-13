@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Dialog, Button, Portal, Card, TextInput } from "react-native-paper";
-
+import { Dialog, Button, Portal, TextInput } from "react-native-paper";
 import { ResolvedComment } from "../../hooks/useComments";
+import { Keyboard, KeyboardEvent, Platform } from "react-native";
 
 type CommentEditDialogProps = {
     comment: ResolvedComment | null;
@@ -20,9 +20,36 @@ const CommentEditDialog: React.FC<CommentEditDialogProps> = ({
     const setBody = (body: string) => {
         commentBody.current = body;
     };
+    const [keyboardHeight, setKeyboardHeight] = React.useState(0);
+
+    React.useEffect(() => {
+        if (Platform.OS === "ios") {
+            const showSubscription = Keyboard.addListener(
+                "keyboardDidShow",
+                (e: KeyboardEvent) => {
+                    setKeyboardHeight(e.endCoordinates.height);
+                }
+            );
+            const hideSubscription = Keyboard.addListener(
+                "keyboardDidHide",
+                () => {
+                    setKeyboardHeight(0);
+                }
+            );
+
+            return () => {
+                showSubscription.remove();
+                hideSubscription.remove();
+            };
+        }
+    }, []);
     return (
         <Portal>
-            <Dialog visible={visible} onDismiss={onDismiss}>
+            <Dialog
+                style={{ marginBottom: keyboardHeight || 0 }}
+                visible={visible}
+                onDismiss={onDismiss}
+            >
                 <Dialog.Title>Edit comment</Dialog.Title>
                 <Dialog.Content>
                     <TextInput
