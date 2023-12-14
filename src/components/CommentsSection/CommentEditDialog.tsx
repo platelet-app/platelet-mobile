@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Dialog, Button, Portal, TextInput } from "react-native-paper";
 import { ResolvedComment } from "../../hooks/useComments";
-import { Keyboard, KeyboardEvent, Platform } from "react-native";
+import useKeyboardHeight from "../../hooks/useKeyboardHeight";
 
 type CommentEditDialogProps = {
     comment: ResolvedComment | null;
@@ -20,29 +20,9 @@ const CommentEditDialog: React.FC<CommentEditDialogProps> = ({
     const setBody = (body: string) => {
         commentBody.current = body;
     };
-    const [keyboardHeight, setKeyboardHeight] = React.useState(0);
 
-    React.useEffect(() => {
-        if (Platform.OS === "ios") {
-            const showSubscription = Keyboard.addListener(
-                "keyboardDidShow",
-                (e: KeyboardEvent) => {
-                    setKeyboardHeight(e.endCoordinates.height);
-                }
-            );
-            const hideSubscription = Keyboard.addListener(
-                "keyboardDidHide",
-                () => {
-                    setKeyboardHeight(0);
-                }
-            );
+    const keyboardHeight = useKeyboardHeight();
 
-            return () => {
-                showSubscription.remove();
-                hideSubscription.remove();
-            };
-        }
-    }, []);
     return (
         <Portal>
             <Dialog
