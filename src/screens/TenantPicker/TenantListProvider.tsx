@@ -42,11 +42,7 @@ export const TenantListProvider: React.FC<TenantListProviderProps> = ({
         }
         try {
             const tenantId = await AsyncStorage.getItem("tenantId");
-            if (!process.env.EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT) {
-                const config = require("../../aws-exports");
-                configureAmplify(config.default);
-                setIsProcessing(false);
-            } else if (tenantId) {
+            if (tenantId) {
                 log(`tenantId: ${tenantId}`);
                 const config = await saveAmplifyConfig(tenantId, 3000);
                 configureAmplify(config);

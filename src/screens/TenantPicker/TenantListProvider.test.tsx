@@ -370,7 +370,7 @@ describe("TenantListProvider", () => {
         );
         screen.getByText("test");
     });
-    test("configuring with an existing config from aws-exports", async () => {
+    test.skip("configuring with an existing config from aws-exports", async () => {
         process.env.EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT = undefined;
         const amplifySpy = jest.spyOn(Amplify, "configure");
         render(
