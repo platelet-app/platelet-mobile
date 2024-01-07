@@ -23,6 +23,8 @@ const log = (message: any) => {
     console.log(`[useMyAssignedTasks] ${message}`);
 };
 
+const DAYS_AGO = 4;
+
 const useMyAssignedTasks = (
     status: models.TaskStatus[] | models.TaskStatus,
     role: models.Role.COORDINATOR | models.Role.RIDER,
@@ -62,10 +64,10 @@ const useMyAssignedTasks = (
             return;
         }
         log("setting up tasks observer");
-        const oneWeekAgo = new Date();
-        oneWeekAgo.setHours(0, 0, 0, 0);
-        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-        const oneWeekAgoString = oneWeekAgo.toISOString();
+        const daysAgo = new Date();
+        daysAgo.setHours(0, 0, 0, 0);
+        daysAgo.setDate(daysAgo.getDate() - DAYS_AGO);
+        const daysAgoString = daysAgo.toISOString();
         try {
             tasksObserver.current.unsubscribe();
             if (limit) {
@@ -78,7 +80,7 @@ const useMyAssignedTasks = (
                             ),
                             t.or((t) => [
                                 t.createdAt.eq(undefined),
-                                t.createdAt.gt(oneWeekAgoString),
+                                t.createdAt.gt(daysAgoString),
                             ]),
                         ]),
                     { sort: (s) => s.createdAt("DESCENDING") }
