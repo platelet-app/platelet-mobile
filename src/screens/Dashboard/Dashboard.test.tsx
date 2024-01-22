@@ -290,6 +290,67 @@ describe("Dashboard", () => {
             }
         }
     );
+    it("only show tasks that were completed less than DAYS_AGO", async () => {
+        const whoami = await DataStore.save(
+            new models.User({
+                name: "John Doe",
+                displayName: "John Doe",
+                cognitoId: "123",
+                roles: [models.Role.RIDER],
+                tenantId,
+                username: "johndoe",
+            })
+        );
+        const task = await DataStore.save(
+            new models.Task({
+                tenantId,
+                status: models.TaskStatus.COMPLETED,
+                dateCreated,
+                dateCompleted: new Date().toISOString().split("T")[0],
+                priority: models.Priority.LOW,
+            })
+        );
+        const task2 = await DataStore.save(
+            new models.Task({
+                tenantId,
+                status: models.TaskStatus.COMPLETED,
+                dateCreated,
+                dateCompleted: "2020-11-28",
+                priority: models.Priority.HIGH,
+            })
+        );
+        const task3 = await DataStore.save(
+            new models.Task({
+                tenantId,
+                status: models.TaskStatus.COMPLETED,
+                dateCreated,
+                dateCompleted: null,
+                priority: models.Priority.MEDIUM,
+            })
+        );
+        await Promise.all(
+            [task, task2, task3].map((task) => {
+                return DataStore.save(
+                    new models.TaskAssignee({
+                        tenantId,
+                        task: task,
+                        assignee: whoami,
+                        role: models.Role.RIDER,
+                    })
+                );
+            })
+        );
+        const preloadedState = {
+            whoami: { user: whoami },
+        };
+        render(<Dashboard tabIndex={1} status={"completed"} />, {
+            preloadedState,
+        });
+        await finishLoading();
+        screen.getByText("LOW");
+        screen.getByText("MEDIUM");
+        expect(screen.queryByText("HIGH")).toBeNull();
+    });
     it("shows deliverables and responds to changes", async () => {
         const whoami = await DataStore.save(
             new models.User({

@@ -7,8 +7,9 @@ import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DataStore } from "aws-amplify";
 import * as SplashScreen from "expo-splash-screen";
+import { DAYS_AGO } from "../../hooks/utilities/getTasksConsts";
 
-export const DAYS_TO_WAIT_BEFORE_CLEARING_DATA = 4;
+export const DAYS_TO_WAIT_BEFORE_CLEARING_DATA = DAYS_AGO;
 
 SplashScreen.preventAutoHideAsync();
 

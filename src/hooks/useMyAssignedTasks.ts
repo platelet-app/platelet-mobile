@@ -6,6 +6,7 @@ import { DataStore } from "aws-amplify";
 import convertModelListToTypedObject from "./utilities/convertModelListToTypedObject";
 import _ from "lodash";
 import useAppActiveStatus from "./useAppActiveStatus";
+import { DAYS_AGO } from "./utilities/getTasksConsts";
 
 export type ResolvedTask = Omit<
     models.Task,
@@ -22,8 +23,6 @@ type StateType = {
 const log = (message: any) => {
     console.log(`[useMyAssignedTasks] ${message}`);
 };
-
-const DAYS_AGO = 4;
 
 const useMyAssignedTasks = (
     status: models.TaskStatus[] | models.TaskStatus,
@@ -79,8 +78,9 @@ const useMyAssignedTasks = (
                                 actualStatus.map((s) => t.status.eq(s))
                             ),
                             t.or((t) => [
-                                t.createdAt.eq(undefined),
-                                t.createdAt.gt(daysAgoString),
+                                t.dateCompleted.eq(undefined),
+                                t.dateCompleted.eq(null),
+                                t.dateCompleted.gt(daysAgoString),
                             ]),
                         ]),
                     { sort: (s) => s.createdAt("DESCENDING") }
