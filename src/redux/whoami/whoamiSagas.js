@@ -173,7 +173,6 @@ function* getWhoami() {
         }
     } catch (error) {
         console.log(error);
-        yield call([AsyncStorage, AsyncStorage.removeItem], "userTenantId");
         yield put(getWhoamiFailure(error));
     }
 }
