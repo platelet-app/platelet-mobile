@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - production
-      - internal
+      - preview
 jobs:
   build:
     runs-on: ubuntu-latest
