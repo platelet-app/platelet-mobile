@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`whoamiSagas API failure 1`] = `
+[
+  {
+    "error": [Error: someError],
+    "type": "GET_WHOAMI_FAILURE",
+  },
+]
+`;
+
+exports[`whoamiSagas can't find the user 1`] = `
+[
+  {
+    "error": [NotFoundError: Could not find tenant id for user],
+    "type": "GET_WHOAMI_FAILURE",
+  },
+]
+`;
+
+exports[`whoamiSagas get the user data from DataStore and the tenantId from localstorage 1`] = `
+[
+  {
+    "data": "someTenantId",
+    "type": "SET_TENANT_ID",
+  },
+]
+`;
+
+exports[`whoamiSagas get the user data from the API and save the tenantId 1`] = `
+[
+  {
+    "data": {
+      "cognitoId": "someCognitoId",
+      "id": "someUserId",
+      "tenantId": "someTenantId",
+    },
+    "type": "GET_WHOAMI_SUCCESS",
+  },
+  {
+    "type": "INIT_WHOAMI_OBSERVER",
+    "whoamiId": "someUserId",
+  },
+  {
+    "data": "someTenantId",
+    "type": "SET_TENANT_ID",
+  },
+]
+`;

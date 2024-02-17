@@ -1,11 +1,11 @@
 import * as awsHubSagas from "./awsHubListener/awsHubListenerSagas";
-
 import { all, call } from "redux-saga/effects";
 import {
     watchGetWhoami,
     watchInitWhoamiObserver,
     watchRefreshWhoami,
 } from "./whoami/whoamiSagas";
+import { watchGetWhoamiFailure, watchLogout } from "./login/loginSagas";
 import {
     watchInitialiseApp,
     watchInitialWhoamiCompleted,
@@ -31,5 +31,7 @@ export default function* rootSaga() {
         call(watchInitWhoamiObserver),
         call(watchInitializeTaskDeliverablesObserver),
         call(watchInitializeCommentsObserver),
+        call(watchLogout),
+        call(watchGetWhoamiFailure),
     ]);
 }

@@ -10,13 +10,12 @@ import {
 import Dashboard from "./src/screens/Dashboard/Dashboard";
 import Task from "./src/screens/Task/Task";
 import { store } from "./src/redux";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { Logger } from "aws-amplify";
 import { enGB, registerTranslation } from "react-native-paper-dates";
 import * as moment from "moment";
 import "moment/locale/en-gb";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { initialiseApp } from "./src/redux/initialise/initialiseActions";
 import { useColorScheme, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import DashboardHeader from "./src/screens/Dashboard/components/DashboardHeader";
@@ -148,17 +147,8 @@ function CompletedStack() {
 }
 
 const Main = () => {
-    const didInit = React.useRef(false);
-    const dispatch = useDispatch();
     const colorScheme = useColorScheme();
 
-    const initialise = () => {
-        if (!didInit.current) {
-            dispatch(initialiseApp());
-            didInit.current = true;
-        }
-    };
-    React.useEffect(initialise, [dispatch]);
     return (
         <NavigationContainer
             theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
@@ -209,15 +199,15 @@ const App = () => {
                             : "tenant-list-provider-2"
                     }
                 >
-                    <Login
-                        onChangeTeam={() => {
-                            setTenantProviderKey(!tenantProviderKey);
-                        }}
-                    >
-                        <Provider store={store}>
+                    <Provider store={store}>
+                        <Login
+                            onChangeTeam={() => {
+                                setTenantProviderKey(!tenantProviderKey);
+                            }}
+                        >
                             <Main />
-                        </Provider>
-                    </Login>
+                        </Login>
+                    </Provider>
                 </TenantListProvider>
             </PaperProvider>
         </SafeAreaProvider>
