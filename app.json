@@ -21,7 +21,7 @@
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             },
-            "package": "com.platelet.app.mobile"
+            "package": "app.platelet.platelet"
         },
         "web": {
             "favicon": "./assets/favicon.png"
