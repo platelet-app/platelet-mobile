@@ -2,7 +2,7 @@
     "expo": {
         "name": "platelet.app",
         "slug": "platelet",
-        "version": "1.5.22",
+        "version": "1.5.23",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
@@ -16,7 +16,7 @@
             "supportsTablet": true
         },
         "android": {
-            "versionCode": 10522,
+            "versionCode": 10523,
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
