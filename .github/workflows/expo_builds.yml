@@ -31,4 +31,4 @@ jobs:
       - name: 🚀 Build app
         run: eas build -p android --non-interactive --profile ${{ github.ref_name }}
       - name: Submit app
-        run: eas submit -p android --latest
+        run: eas submit -p android --latest --profile ${{ github.ref_name }}
