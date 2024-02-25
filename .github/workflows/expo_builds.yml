@@ -28,7 +28,5 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
-      - name: 🚀 Build app
-        run: eas build -p android --non-interactive --profile ${{ github.ref_name }}
-      - name: Submit app
-        run: eas submit -p android --latest --profile ${{ github.ref_name }}
+      - name: 🚀 Build app and submit
+        run: eas build -p android --non-interactive --auto-submit --profile ${{ github.ref_name }}
