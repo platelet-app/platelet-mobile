@@ -1,4 +1,5 @@
 import { call, put, take, takeLatest } from "redux-saga/effects";
+import * as Sentry from "@sentry/react-native";
 import {
     GET_WHOAMI_REQUEST,
     getWhoamiFailure,
@@ -106,6 +107,7 @@ function* getWhoami() {
                 errorHandler: (err) => {
                     console.log("DataStore error:", err);
                     console.log("Cause:", err.cause);
+                    Sentry.captureMessage(`DataStore error: ${err}`);
                 },
                 syncExpressions: [
                     ...modelsToSync.map((model) =>
