@@ -31,6 +31,15 @@
                 "projectId": "e0ebf080-50a7-4699-9200-4784bf67be53"
             }
         },
-        "owner": "platelet"
+        "owner": "platelet",
+        "plugins": [
+            [
+                "@sentry/react-native/expo",
+                {
+                    "organization": "platelet-software-limited",
+                    "project": "react-native"
+                }
+            ]
+        ]
     }
 }
