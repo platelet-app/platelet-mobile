@@ -23,10 +23,12 @@
     "@react-navigation/material-bottom-tabs": "^6.2.16",
     "@react-navigation/native-stack": "^6.9.13",
     "@reduxjs/toolkit": "^1.9.5",
+    "@sentry/react-native": "5.19.1",
     "amazon-cognito-identity-js": "^6.3.1",
     "aws-amplify": "^5.3.11",
     "core-js": "^3.31.1",
     "expo": "^50.0.13",
+    "expo-dev-client": "~3.3.10",
     "expo-file-system": "~16.0.8",
     "expo-splash-screen": "~0.26.4",
     "expo-sqlite": "~13.3.0",
@@ -34,6 +36,7 @@
     "faker": "5.5.3",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
+    "promise": "^8.3.0",
     "react": "18.2.0",
     "react-content-loader": "^6.2.1",
     "react-native": "0.73.5",
@@ -46,8 +49,7 @@
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.19.6",
     "react-redux": "^8.1.1",
-    "redux-saga": "^1.2.3",
-    "@sentry/react-native": "5.19.1"
+    "redux-saga": "^1.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
