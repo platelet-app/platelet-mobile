@@ -69,7 +69,7 @@ export const TenantListProvider: React.FC<TenantListProviderProps> = ({
         setup();
     }, [setup]);
 
-    const onLayoutRootView = React.useCallback(async () => {
+    const onLayoutRootView = async () => {
         if (!isProcessing) {
             // This tells the splash screen to hide immediately! If we call this after
             // `setAppIsReady`, then we may see a blank screen while the app is
@@ -78,7 +78,7 @@ export const TenantListProvider: React.FC<TenantListProviderProps> = ({
             // performed layout.
             await SplashScreen.hideAsync();
         }
-    }, [isProcessing]);
+    };
 
     if (isProcessing) {
         return null;
