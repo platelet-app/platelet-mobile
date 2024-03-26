@@ -35,6 +35,32 @@ const TaskActions: React.FC<TaskActionsProps> = ({ taskId }) => {
         useModelSubscription<models.Task>(models.Task, taskId);
     const [snackVisible, setSnackVisible] = React.useState(false);
 
+    const stateChecker = () => {
+        const states = buttonsState?.reduce(
+            (acc, key) => {
+                acc[key] = buttonsState?.includes(key);
+                return acc;
+            },
+            {
+                timePickedUp: false,
+                timeDroppedOff: false,
+                timeRiderHome: false,
+                timeCancelled: false,
+                timeRejected: false,
+            }
+        );
+        if (!states.timePickedUp) {
+            if (states.timeDroppedOff || states.timeRiderHome) {
+                return false;
+            }
+        } else if (!states.timeDroppedOff) {
+            if (states.timeRiderHome) {
+                return false;
+            }
+        }
+        return true;
+    };
+
     function onClickToggle(key: TaskUpdateKey) {
         setConfirmationKey(key);
     }
@@ -89,6 +115,7 @@ const TaskActions: React.FC<TaskActionsProps> = ({ taskId }) => {
     };
 
     function checkDisabled(key: TaskUpdateKey) {
+        if (!stateChecker()) return false;
         if (
             notFound ||
             error ||

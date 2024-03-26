@@ -69,6 +69,34 @@ describe("TaskActions", () => {
         ).toBeDisabled();
         await finishLoading();
     });
+
+    test.each`
+        key
+        ${"timeDroppedOff"} | ${"timeRiderHome"}
+    `("all buttons are enabled when the state is weird", async ({ key }) => {
+        const querySpy = jest.spyOn(DataStore, "query");
+
+        const task = await DataStore.save(
+            new models.Task({
+                status: models.TaskStatus.ACTIVE,
+                [key]: new Date().toISOString(),
+                tenantId,
+                dateCreated,
+            })
+        );
+        render(<TaskActions taskId={task.id} />);
+        await finishLoading();
+        expect(screen.getByRole("button", { name: "Picked up" })).toBeEnabled();
+        expect(screen.getByRole("button", { name: "Delivered" })).toBeEnabled();
+        expect(screen.getByRole("button", { name: "Cancelled" })).toBeEnabled();
+        expect(screen.getByRole("button", { name: "Rejected" })).toBeEnabled();
+        expect(
+            screen.getByRole("button", { name: "Rider home" })
+        ).toBeEnabled();
+        await waitFor(() => {
+            expect(querySpy).toHaveBeenCalledTimes(1);
+        });
+    });
     test("all buttons are disabled if the task is PENDING", async () => {
         const mockTask = new models.Task({
             tenantId,
