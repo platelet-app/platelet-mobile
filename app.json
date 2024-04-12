@@ -2,7 +2,7 @@
     "expo": {
         "name": "platelet.app",
         "slug": "platelet",
-        "version": "1.6.00",
+        "version": "1.6.01",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
@@ -12,16 +12,18 @@
             "backgroundColor": "#ffffff"
         },
         "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true
-        },
         "android": {
-            "versionCode": 10600,
+            "versionCode": 10601,
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             },
             "package": "app.platelet.platelet"
+        },
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "app.platelet.platelet",
+            "buildNumber": "1.6.01"
         },
         "web": {
             "favicon": "./assets/favicon.png"
