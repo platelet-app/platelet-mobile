@@ -38,7 +38,7 @@
             [
                 "@sentry/react-native/expo",
                 {
-                    "organization": "platelet-software-limited",
+                    "organization": "platelet-software-limited-tp",
                     "project": "react-native"
                 }
             ]
