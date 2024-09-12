@@ -39,7 +39,8 @@
                 "@sentry/react-native/expo",
                 {
                     "organization": "platelet-software-limited-tp",
-                    "project": "react-native"
+                    "project": "react-native",
+                    "url": "https://sentry.io"
                 }
             ]
         ]

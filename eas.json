@@ -1,43 +1,44 @@
 {
-    "cli": {
-        "version": ">= 3.18.3"
+  "cli": {
+    "version": ">= 3.18.3",
+    "promptToConfigurePushNotifications": false
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      },
+      "env": {
+        "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://a7rbdicqprdchctegugqnoz6wi.appsync-api.eu-west-1.amazonaws.com/graphql",
+        "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-kjw5bpnkofhnxhsogf6af66xau"
+      }
     },
-    "build": {
-        "development": {
-            "developmentClient": true,
-            "distribution": "internal",
-            "ios": {
-                "simulator": true
-            },
-            "env": {
-                "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://a7rbdicqprdchctegugqnoz6wi.appsync-api.eu-west-1.amazonaws.com/graphql",
-                "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-kjw5bpnkofhnxhsogf6af66xau"
-            }
-        },
-        "preview": {
-            "distribution": "internal",
-            "env": {
-                "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://a7rbdicqprdchctegugqnoz6wi.appsync-api.eu-west-1.amazonaws.com/graphql",
-                "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-kjw5bpnkofhnxhsogf6af66xau"
-            }
-        },
-        "production": {
-            "env": {
-                "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://flpzqrvf4jgf7fwkfydm3cbqvy.appsync-api.eu-west-1.amazonaws.com/graphql",
-                "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-v2kdrx342raylkot2446a66ruu"
-            }
-        }
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://a7rbdicqprdchctegugqnoz6wi.appsync-api.eu-west-1.amazonaws.com/graphql",
+        "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-kjw5bpnkofhnxhsogf6af66xau"
+      }
     },
-    "submit": {
-        "production": {
-            "android": {
-                "track": "production"
-            }
-        },
-        "preview": {
-            "android": {
-                "track": "internal"
-            }
-        }
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://flpzqrvf4jgf7fwkfydm3cbqvy.appsync-api.eu-west-1.amazonaws.com/graphql",
+        "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-v2kdrx342raylkot2446a66ruu"
+      }
     }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "track": "production"
+      }
+    },
+    "preview": {
+      "android": {
+        "track": "internal"
+      }
+    }
+  }
 }
