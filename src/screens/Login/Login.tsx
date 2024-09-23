@@ -70,6 +70,7 @@ const Login: React.FC<LoginProps> = ({ children, onChangeTeam }) => {
                         SignIn: (props) => (
                             <Authenticator.SignIn
                                 {...props}
+                                hideSignUp
                                 Header={HeaderWithProps}
                             />
                         ),
