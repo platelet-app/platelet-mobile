@@ -25,10 +25,12 @@ import Login from "./src/screens/Login/Login";
 import * as _ from "lodash";
 import * as Sentry from "@sentry/react-native";
 
-Sentry.init({
-    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN || "",
-    debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
-});
+if (process.env.EXPO_PUBLIC_SENTRY_DSN) {
+    Sentry.init({
+        dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+        debug: process.env.EXPO_PUBLIC_SENTRY_DEBUG_MODE === "true",
+    });
+}
 
 declare global {
     namespace ReactNavigation {

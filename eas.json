@@ -1,44 +1,47 @@
 {
-  "cli": {
-    "version": ">= 3.18.3",
-    "promptToConfigurePushNotifications": false
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "ios": {
-        "simulator": true
-      },
-      "env": {
-        "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://a7rbdicqprdchctegugqnoz6wi.appsync-api.eu-west-1.amazonaws.com/graphql",
-        "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-kjw5bpnkofhnxhsogf6af66xau"
-      }
+    "cli": {
+        "version": ">= 3.18.3",
+        "promptToConfigurePushNotifications": false
     },
-    "preview": {
-      "distribution": "internal",
-      "env": {
-        "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://a7rbdicqprdchctegugqnoz6wi.appsync-api.eu-west-1.amazonaws.com/graphql",
-        "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-kjw5bpnkofhnxhsogf6af66xau"
-      }
+    "build": {
+        "development": {
+            "developmentClient": true,
+            "distribution": "internal",
+            "ios": {
+                "simulator": true
+            },
+            "env": {
+                "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://a7rbdicqprdchctegugqnoz6wi.appsync-api.eu-west-1.amazonaws.com/graphql",
+                "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-kjw5bpnkofhnxhsogf6af66xau",
+                "EXPO_PUBLIC_SENTRY_DEBUG_MODE": "true"
+            }
+        },
+        "preview": {
+            "distribution": "internal",
+            "env": {
+                "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://a7rbdicqprdchctegugqnoz6wi.appsync-api.eu-west-1.amazonaws.com/graphql",
+                "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-kjw5bpnkofhnxhsogf6af66xau",
+                "EXPO_PUBLIC_SENTRY_DEBUG_MODE": "false"
+            }
+        },
+        "production": {
+            "env": {
+                "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://flpzqrvf4jgf7fwkfydm3cbqvy.appsync-api.eu-west-1.amazonaws.com/graphql",
+                "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-v2kdrx342raylkot2446a66ruu",
+                "EXPO_PUBLIC_SENTRY_DEBUG_MODE": "false"
+            }
+        }
     },
-    "production": {
-      "env": {
-        "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://flpzqrvf4jgf7fwkfydm3cbqvy.appsync-api.eu-west-1.amazonaws.com/graphql",
-        "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-v2kdrx342raylkot2446a66ruu"
-      }
+    "submit": {
+        "production": {
+            "android": {
+                "track": "production"
+            }
+        },
+        "preview": {
+            "android": {
+                "track": "internal"
+            }
+        }
     }
-  },
-  "submit": {
-    "production": {
-      "android": {
-        "track": "production"
-      }
-    },
-    "preview": {
-      "android": {
-        "track": "internal"
-      }
-    }
-  }
 }
