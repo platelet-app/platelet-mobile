@@ -7,6 +7,10 @@ jest.mock("@react-native-async-storage/async-storage", () => mockImpl);
 jest.mock("expo-font");
 jest.mock("expo-asset");
 jest.mock("react-native-safe-area-context", () => mockSafeAreaContext);
+jest.mock("@sentry/react-native", () => ({
+    init: jest.fn(),
+    captureMessage: jest.fn(),
+}));
 
 const RESET_MODULE_EXCEPTIONS = ["react", "react-redux"];
 
