@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
     NativeSyntheticEvent,
+    TextInput,
     TextInputChangeEventData,
     View,
 } from "react-native";
@@ -35,6 +36,7 @@ const SearchAndUserMenuBar: React.FC<SearchAndUserMenuBarProps> = ({
     const handleClear = () => {
         dispatch(setDashboardFilterTextboxValue(""));
     };
+    const ref = React.useRef<TextInput | null>(null);
 
     return (
         <View
@@ -53,6 +55,10 @@ const SearchAndUserMenuBar: React.FC<SearchAndUserMenuBarProps> = ({
                 onChange={handleChange}
                 value={currentFilter}
                 placeholder="Filter..."
+                onIconPress={() => {
+                    if (ref.current) ref.current.focus();
+                }}
+                ref={ref}
             />
             <UserAvatar
                 onPress={() => setLogoutDialog(true)}
