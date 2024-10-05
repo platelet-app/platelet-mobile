@@ -1,8 +1,8 @@
 {
     "expo": {
-        "name": "platelet.app",
+        "name": "Platelet Dispatch",
         "slug": "platelet",
-        "version": "1.6.07",
+        "version": "1.6.08",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
@@ -13,7 +13,7 @@
         },
         "assetBundlePatterns": ["**/*"],
         "android": {
-            "versionCode": 10607,
+            "versionCode": 10608,
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
@@ -23,7 +23,7 @@
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "app.platelet.platelet",
-            "buildNumber": "1.6.07"
+            "buildNumber": "1.6.08"
         },
         "web": {
             "favicon": "./assets/favicon.png"
