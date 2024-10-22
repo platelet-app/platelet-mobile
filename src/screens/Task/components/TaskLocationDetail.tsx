@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Linking, Platform, View } from "react-native";
 import * as models from "../../../models";
 import {
     Text,
@@ -12,6 +13,7 @@ import LabelItemPair from "./LabelItemPair";
 import DividerWithBottomMargin from "../../../components/DividerWithBottomMargin";
 import ContentLoader, { Rect } from "react-content-loader/native";
 import GenericError from "../../Errors/GenericError";
+import W3wIcon from "../../../assets/w3w_Symbol_RGB_Red.svg";
 
 type TaskLocationDetailProps = {
     locationId?: string | null;
@@ -72,28 +74,23 @@ const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
     locationId,
     title,
 }) => {
-    const [showHidden, setShowHidden] = React.useState(false);
     const { state, isFetching, error } = useModelSubscription<models.Location>(
         models.Location,
         locationId
     );
-    const { colors } = useTheme();
-    const hiddenFields = ["line2", "line3", "county", "town", "country"];
-    const wholeAddress = React.useMemo(
-        () =>
-            Object.keys(fields).reduce((acc, key) => {
-                const value = state?.[key as keyof TaskLocationDetailFields];
-                if (value && acc) {
-                    return `${acc}
-${value}`;
-                } else if (value) {
-                    return value;
-                } else {
-                    return acc;
-                }
-            }, ""),
-        [state]
-    );
+    const { colors, dark } = useTheme();
+
+    const addressString = !state
+        ? ""
+        : Object.keys(fields)
+              .filter((v) => !["what3words"].includes(v))
+              .map((key) => state[key as keyof TaskLocationDetailFields])
+              .filter((v) => v)
+              .join(", ");
+    const mapsUrl = Platform.select({
+        ios: `maps://0,0?q=${addressString}`,
+        android: `geo:0,0?q=${addressString}`,
+    });
     if (error) {
         return <GenericError />;
     } else if (isFetching) {
@@ -165,41 +162,63 @@ ${value}`;
         return (
             <CardWrapper title={title}>
                 <Card.Content style={{ gap: 8 }}>
-                    {showHidden && (
-                        <Text style={{ textAlign: "right" }} selectable>
-                            {wholeAddress}
-                        </Text>
-                    )}
                     <TouchableRipple
-                        onPress={() => {
-                            setShowHidden(true);
-                        }}
+                        onLongPress={() => {}}
+                        onPress={() => mapsUrl && Linking.openURL(mapsUrl)}
                     >
-                        <>
-                            {Object.entries(fields).map(([key, label]) => {
-                                if (!showHidden && hiddenFields.includes(key)) {
-                                    return null;
-                                } else if (!showHidden) {
-                                    return (
-                                        <LabelItemPair
-                                            key={key}
-                                            label={label}
-                                            item={
-                                                state?.[
-                                                    key as keyof TaskLocationDetailFields
-                                                ]
-                                            }
-                                        />
-                                    );
-                                } else {
-                                    return null;
-                                }
-                            })}
-                            {Object.entries(contactFields).map(
-                                ([key, label]) => (
+                        <View style={{ gap: 8 }}>
+                            <Text style={{ fontWeight: "bold" }}>
+                                {state?.name}
+                            </Text>
+                            <Text selectable>{addressString}</Text>
+                        </View>
+                    </TouchableRipple>
+                    {state?.what3words && (
+                        <TouchableRipple
+                            onPress={() =>
+                                Linking.openURL(
+                                    `https://what3words.com/${state.what3words}`
+                                )
+                            }
+                        >
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    gap: 4,
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: dark ? "white" : "blue",
+                                        textDecorationLine: "underline",
+                                    }}
+                                >
+                                    {state?.what3words}
+                                </Text>
+                                <W3wIcon width={20} height={20} />
+                            </View>
+                        </TouchableRipple>
+                    )}
+                    {(state?.contact?.name ||
+                        state?.contact?.telephoneNumber) && (
+                        <Divider
+                            style={{
+                                marginTop: 8,
+                                width: "90%",
+                                alignSelf: "center",
+                            }}
+                        />
+                    )}
+                    <View>
+                        {Object.entries(contactFields).map(
+                            ([key, label]) =>
+                                state?.contact?.[
+                                    key as keyof TaskContactDetailFields
+                                ] && (
                                     <LabelItemPair
                                         key={key}
                                         label={label}
+                                        tel={key === "telephoneNumber"}
                                         item={
                                             state?.contact?.[
                                                 key as keyof TaskContactDetailFields
@@ -207,25 +226,9 @@ ${value}`;
                                         }
                                     />
                                 )
-                            )}
-                        </>
-                    </TouchableRipple>
+                        )}
+                    </View>
                 </Card.Content>
-                <Divider
-                    style={{ marginTop: 8, width: "90%", alignSelf: "center" }}
-                />
-                <Text
-                    variant="bodyLarge"
-                    style={{
-                        padding: 8,
-                        textDecorationLine: "underline",
-                        fontStyle: "italic",
-                        alignSelf: "flex-end",
-                    }}
-                    onPress={() => setShowHidden((prevState) => !prevState)}
-                >
-                    {showHidden ? "See less" : "See more"}
-                </Text>
             </CardWrapper>
         );
     }
