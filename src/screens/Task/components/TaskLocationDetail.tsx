@@ -9,11 +9,11 @@ import {
     useTheme,
 } from "react-native-paper";
 import useModelSubscription from "../../../hooks/useModelSubscription";
-import LabelItemPair from "./LabelItemPair";
 import DividerWithBottomMargin from "../../../components/DividerWithBottomMargin";
 import ContentLoader, { Rect } from "react-content-loader/native";
 import GenericError from "../../Errors/GenericError";
-import W3wIcon from "../../../assets/w3w_Symbol_RGB_Red.svg";
+import WhatThreeWords from "./WhatThreeWords";
+import Telephone from "./Telephone";
 
 type TaskLocationDetailProps = {
     locationId?: string | null;
@@ -174,30 +174,15 @@ const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
                         </View>
                     </TouchableRipple>
                     {state?.what3words && (
-                        <TouchableRipple
-                            onPress={() =>
-                                Linking.openURL(
-                                    `https://what3words.com/${state.what3words}`
-                                )
-                            }
-                        >
-                            <View
+                        <>
+                            <Divider
                                 style={{
-                                    flexDirection: "row",
-                                    gap: 4,
+                                    width: "100%",
+                                    alignSelf: "center",
                                 }}
-                            >
-                                <Text
-                                    style={{
-                                        color: dark ? "white" : "blue",
-                                        textDecorationLine: "underline",
-                                    }}
-                                >
-                                    {state?.what3words}
-                                </Text>
-                                <W3wIcon width={20} height={20} />
-                            </View>
-                        </TouchableRipple>
+                            />
+                            <WhatThreeWords what3words={state.what3words} />
+                        </>
                     )}
                     {(state?.contact?.name ||
                         state?.contact?.telephoneNumber) && (
@@ -209,25 +194,11 @@ const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
                             }}
                         />
                     )}
-                    <View>
-                        {Object.entries(contactFields).map(
-                            ([key, label]) =>
-                                state?.contact?.[
-                                    key as keyof TaskContactDetailFields
-                                ] && (
-                                    <LabelItemPair
-                                        key={key}
-                                        label={label}
-                                        tel={key === "telephoneNumber"}
-                                        item={
-                                            state?.contact?.[
-                                                key as keyof TaskContactDetailFields
-                                            ]
-                                        }
-                                    />
-                                )
-                        )}
-                    </View>
+                    {state?.contact && (
+                        <Telephone
+                            telephoneNumber={state.contact.telephoneNumber!}
+                        />
+                    )}
                 </Card.Content>
             </CardWrapper>
         );
