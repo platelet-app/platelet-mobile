@@ -62,7 +62,7 @@ const CardWrapper = ({
     title: string;
 }) => {
     return (
-        <Card>
+        <Card mode="outlined">
             <Card.Title title={title} />
             <DividerWithBottomMargin />
             {children}

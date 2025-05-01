@@ -166,7 +166,7 @@ const TaskActions: React.FC<TaskActionsProps> = ({ taskId }) => {
 
     return (
         <>
-            <Card>
+            <Card mode="outlined">
                 <Card.Content>
                     {Object.entries(fields).map(([key, value], index) => {
                         let borderTopLeftRadius = 0;
