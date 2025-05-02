@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Linking, View } from "react-native";
-import { TouchableRipple, useTheme, Text } from "react-native-paper";
+import { TouchableRipple, Text } from "react-native-paper";
 import Svg, { SvgProps, Defs, G, Path } from "react-native-svg";
 
 const Logo = (props: SvgProps) => (
@@ -53,7 +53,7 @@ const WhatThreeWords: React.FC<WhatThreeWordsProps> = ({ what3words }) => {
                     gap: 4,
                 }}
             >
-                <Logo width={40} height={40} />
+                <Logo width={32} height={32} />
                 <Text>{what3words}</Text>
             </View>
         </TouchableRipple>
