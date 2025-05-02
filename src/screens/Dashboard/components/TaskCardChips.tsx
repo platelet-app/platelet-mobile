@@ -5,6 +5,7 @@ import DeliverableChip from "./DeliverableChip";
 import PriorityChip from "./PriorityChip";
 import { List } from "react-native-paper";
 import SmallChip from "./SmallChip";
+import ScheduleChip from "./ScheduleChip";
 
 type ResolvedDeliverable = models.Deliverable & {
     deliverableType: models.DeliverableType;
@@ -18,6 +19,8 @@ type TaskCardChipsProps = {
     // don't know why I need to write them out individually for TaskCard to not complain
     priority?: models.Priority | "HIGH" | "MEDIUM" | "LOW" | null;
     limit?: number;
+    pickUpSchedule?: models.Schedule | null;
+    dropOffSchedule?: models.Schedule | null;
     showDeliverableIcons?: boolean;
 };
 
@@ -28,14 +31,47 @@ const TaskCardChips: React.FC<TaskCardChipsProps> = ({
     riderResponsibility,
     priority,
     limit,
+    pickUpSchedule,
+    dropOffSchedule,
     showDeliverableIcons = false,
 }) => {
     let chips = [];
-    if (status) {
-        chips.push(
-            <TaskStatusChip style={styles.chip} status={status} key={status} />
-        );
+    if (
+        [
+            models.TaskStatus.NEW,
+            models.TaskStatus.FUTURE,
+            models.TaskStatus.PENDING,
+            models.TaskStatus.ACTIVE,
+        ].includes(status as models.TaskStatus)
+    ) {
+        if (pickUpSchedule) {
+            chips.push(
+                <ScheduleChip
+                    schedule={pickUpSchedule}
+                    key="pick-up-schedule"
+                />
+            );
+        }
     }
+    if (
+        [
+            models.TaskStatus.NEW,
+            models.TaskStatus.FUTURE,
+            models.TaskStatus.PENDING,
+            models.TaskStatus.ACTIVE,
+            models.TaskStatus.PICKED_UP,
+        ].includes(status as models.TaskStatus)
+    ) {
+        if (dropOffSchedule) {
+            chips.push(
+                <ScheduleChip
+                    schedule={dropOffSchedule}
+                    key="drop-off-schedule"
+                />
+            );
+        }
+    }
+
     if (priority) {
         chips.push(<PriorityChip priority={priority} key={priority} />);
     }
