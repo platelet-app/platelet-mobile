@@ -65,11 +65,13 @@ const Task: React.FC<TaskProps> = ({ route, navigation }) => {
                 <TaskLocationDetail
                     locationId={pickUpLocationId}
                     title="Collect from"
+                    schedule={state?.pickUpSchedule}
                 />
 
                 <TaskLocationDetail
                     locationId={dropOffLocationId}
                     title="Deliver to"
+                    schedule={state?.dropOffSchedule}
                 />
                 <TaskInventoryDetail taskId={taskId} />
                 <TaskAssigneesDetail taskId={taskId} />

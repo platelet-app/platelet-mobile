@@ -14,10 +14,12 @@ import ContentLoader, { Rect } from "react-content-loader/native";
 import GenericError from "../../Errors/GenericError";
 import WhatThreeWords from "./WhatThreeWords";
 import Telephone from "./Telephone";
+import ScheduleDetails from "./ScheduleDetails";
 
 type TaskLocationDetailProps = {
     locationId?: string | null;
     title: string;
+    schedule?: models.Schedule | null;
 };
 
 type TaskLocationDetailFields = {
@@ -33,11 +35,6 @@ type TaskLocationDetailFields = {
     what3words?: string | null;
 };
 
-type TaskContactDetailFields = {
-    name?: string | null;
-    telephoneNumber?: string | null;
-};
-
 const fields = {
     ward: "Ward",
     line1: "Line one",
@@ -47,11 +44,6 @@ const fields = {
     county: "County",
     country: "Country",
     postcode: "Postcode",
-};
-
-const contactFields = {
-    name: "Name",
-    telephoneNumber: "Telephone",
 };
 
 const CardWrapper = ({
@@ -73,6 +65,7 @@ const CardWrapper = ({
 const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
     locationId,
     title,
+    schedule,
 }) => {
     const { state, isFetching, error } = useModelSubscription<models.Location>(
         models.Location,
@@ -189,7 +182,7 @@ const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
                         <Divider
                             style={{
                                 marginTop: 8,
-                                width: "90%",
+                                width: "100%",
                                 alignSelf: "center",
                             }}
                         />
@@ -199,6 +192,16 @@ const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
                             telephoneNumber={state.contact.telephoneNumber!}
                         />
                     )}
+                    {schedule && (
+                        <Divider
+                            style={{
+                                marginTop: 8,
+                                width: "100%",
+                                alignSelf: "center",
+                            }}
+                        />
+                    )}
+                    <ScheduleDetails schedule={schedule} />
                 </Card.Content>
             </CardWrapper>
         );
