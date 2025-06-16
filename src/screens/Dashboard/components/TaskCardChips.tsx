@@ -1,11 +1,11 @@
 import * as models from "../../../models";
 import { StyleSheet, View } from "react-native";
-import TaskStatusChip from "./TaskStatusChip";
 import DeliverableChip from "./DeliverableChip";
 import PriorityChip from "./PriorityChip";
 import { List } from "react-native-paper";
 import SmallChip from "./SmallChip";
 import ScheduleChip from "./ScheduleChip";
+import Entypo from "@expo/vector-icons/Entypo";
 
 type ResolvedDeliverable = models.Deliverable & {
     deliverableType: models.DeliverableType;
@@ -45,8 +45,10 @@ const TaskCardChips: React.FC<TaskCardChipsProps> = ({
         ].includes(status as models.TaskStatus)
     ) {
         if (pickUpSchedule) {
+            const icon = <Entypo name="arrow-bold-up" />;
             chips.push(
                 <ScheduleChip
+                    icon={icon}
                     schedule={pickUpSchedule}
                     key="pick-up-schedule"
                 />
@@ -63,10 +65,12 @@ const TaskCardChips: React.FC<TaskCardChipsProps> = ({
         ].includes(status as models.TaskStatus)
     ) {
         if (dropOffSchedule) {
+            const icon = <Entypo name="arrow-bold-down" />;
             chips.push(
                 <ScheduleChip
                     schedule={dropOffSchedule}
                     key="drop-off-schedule"
+                    icon={icon}
                 />
             );
         }

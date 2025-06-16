@@ -10,11 +10,15 @@ import { View } from "react-native";
 
 type ScheduleChipProps = {
     schedule: models.Schedule;
+    icon?: React.ReactElement;
 };
 
-const ScheduleChip: React.FC<ScheduleChipProps> = ({ schedule }) => {
-    let iconColor = "";
-    const dueStatus = taskScheduleDueStatus(schedule);
+const ScheduleChip: React.FC<ScheduleChipProps> = ({
+    schedule,
+    icon = <FontAwesome5 name={"clock"} />,
+}) => {
+    let iconColor: string | undefined = undefined;
+    const dueStatus = taskScheduleDueStatus(schedule, 1, 0);
     const overDueStatus = taskScheduleOverDueStatus(schedule);
 
     if (dueStatus) {
@@ -22,6 +26,14 @@ const ScheduleChip: React.FC<ScheduleChipProps> = ({ schedule }) => {
     }
     if (overDueStatus) {
         iconColor = "red";
+    }
+    const iconComponent = React.cloneElement(icon, {
+        color: iconColor,
+        size: 20,
+    });
+    let message = humanReadableScheduleString(schedule, true);
+    if (message.length > 16) {
+        message = message.substring(0, 16) + "...";
     }
 
     return (
@@ -35,15 +47,12 @@ const ScheduleChip: React.FC<ScheduleChipProps> = ({ schedule }) => {
             <View
                 style={{
                     display: "flex",
-                    gap: 10,
                     flexDirection: "row",
                     alignItems: "center",
                 }}
             >
-                <Text>
-                    <FontAwesome5 color={iconColor} size={20} name="clock" />
-                </Text>
-                <Text>{humanReadableScheduleString(schedule, true)}</Text>
+                <Text>{iconComponent}</Text>
+                <Text style={{ fontSize: 12 }}>{message}</Text>
             </View>
         </SmallChip>
     );
