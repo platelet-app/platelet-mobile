@@ -36,44 +36,35 @@ const TaskCardChips: React.FC<TaskCardChipsProps> = ({
     showDeliverableIcons = false,
 }) => {
     let chips = [];
-    if (
-        [
-            models.TaskStatus.NEW,
-            models.TaskStatus.FUTURE,
-            models.TaskStatus.PENDING,
-            models.TaskStatus.ACTIVE,
-        ].includes(status as models.TaskStatus)
-    ) {
-        if (pickUpSchedule) {
-            const icon = <Entypo name="arrow-bold-up" />;
-            chips.push(
-                <ScheduleChip
-                    icon={icon}
-                    schedule={pickUpSchedule}
-                    key="pick-up-schedule"
-                />
-            );
-        }
+    const showDefaults = [
+        models.TaskStatus.NEW,
+        models.TaskStatus.ACTIVE,
+        models.TaskStatus.PENDING,
+        models.TaskStatus.FUTURE,
+    ];
+    const showPickUp = status ? showDefaults.includes(status) : true;
+    const showDropOff = status
+        ? [...showDefaults, models.TaskStatus.PICKED_UP].includes(status)
+        : true;
+    if (pickUpSchedule && showPickUp) {
+        const icon = <Entypo name="arrow-bold-up" />;
+        chips.push(
+            <ScheduleChip
+                icon={icon}
+                schedule={pickUpSchedule}
+                key="pick-up-schedule"
+            />
+        );
     }
-    if (
-        [
-            models.TaskStatus.NEW,
-            models.TaskStatus.FUTURE,
-            models.TaskStatus.PENDING,
-            models.TaskStatus.ACTIVE,
-            models.TaskStatus.PICKED_UP,
-        ].includes(status as models.TaskStatus)
-    ) {
-        if (dropOffSchedule) {
-            const icon = <Entypo name="arrow-bold-down" />;
-            chips.push(
-                <ScheduleChip
-                    schedule={dropOffSchedule}
-                    key="drop-off-schedule"
-                    icon={icon}
-                />
-            );
-        }
+    if (dropOffSchedule && showDropOff) {
+        const icon = <Entypo name="arrow-bold-down" />;
+        chips.push(
+            <ScheduleChip
+                schedule={dropOffSchedule}
+                key="drop-off-schedule"
+                icon={icon}
+            />
+        );
     }
 
     if (priority) {
