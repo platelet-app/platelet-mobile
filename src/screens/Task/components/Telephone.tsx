@@ -7,10 +7,12 @@ type TelephoneProps = {
 };
 
 const Telephone: React.FC<TelephoneProps> = ({ telephoneNumber }) => {
+    const handleOnPress = () => {
+        const telStripped = telephoneNumber.replace(/\s/g, "");
+        Linking.openURL(`tel:${telStripped}`);
+    };
     return (
-        <TouchableRipple
-            onPress={() => Linking.openURL(`tel:${telephoneNumber}`)}
-        >
+        <TouchableRipple onPress={handleOnPress}>
             <View
                 style={{
                     flexDirection: "row",

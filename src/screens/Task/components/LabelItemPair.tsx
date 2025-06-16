@@ -20,13 +20,20 @@ const LabelItemPair: React.FC<LabelItemPairProps> = ({
     if (!item && showUnset) {
         text = "Unset";
     }
+
+    const handleOnPress = (telephoneNumber: string | null | undefined) => {
+        if (telephoneNumber) {
+            const telStripped = telephoneNumber.replace(/\s/g, "");
+            Linking.openURL(`tel:${telStripped}`);
+        }
+    };
     const actualItem = tel ? (
         <Text
             style={{
                 color: theme.dark ? "white" : "blue",
                 textDecorationLine: "underline",
             }}
-            onPress={() => Linking.openURL(`tel:${item}`)}
+            onPress={() => handleOnPress(item)}
         >
             {text}
         </Text>
