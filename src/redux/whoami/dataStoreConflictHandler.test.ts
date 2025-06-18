@@ -127,7 +127,8 @@ describe("dataStoreConflictHandler", () => {
                 "createdAt",
                 "updatedAt",
                 "tenantId",
-                "archived"
+                "archived",
+                "dateCompleted"
             );
 
             expect(result).toEqual({
@@ -207,7 +208,8 @@ describe("dataStoreConflictHandler", () => {
             "createdAt",
             "updatedAt",
             "tenantId",
-            "archived"
+            "archived",
+            "dateCompleted"
         );
 
         expect(result).toEqual({

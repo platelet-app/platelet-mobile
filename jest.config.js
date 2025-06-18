@@ -9,6 +9,12 @@ module.exports = {
             ],
             moduleNameMapper: { "^uuid$": "uuid" },
             globalSetup: "./global-setup.js",
+            transform: {
+                "^.+\\.[jt]sx?$": [
+                    "babel-jest",
+                    { caller: { preserveEnvVars: true } },
+                ],
+            },
         },
         {
             preset: "jest-expo/android",
@@ -19,6 +25,12 @@ module.exports = {
             ],
             moduleNameMapper: { "^uuid$": "uuid" },
             globalSetup: "./global-setup.js",
+            transform: {
+                "^.+\\.[jt]sx?$": [
+                    "babel-jest",
+                    { caller: { preserveEnvVars: true } },
+                ],
+            },
         },
     ],
 };

@@ -1,6 +1,11 @@
 import MockAsyncStorage from "mock-async-storage";
 import "@testing-library/jest-native/extend-expect";
 import mockSafeAreaContext from "react-native-safe-area-context/jest/mock";
+import { load } from "@expo/env";
+import path from "path";
+
+// Load Expo environment variables from your project's root .env files
+load(path.resolve(__dirname, "../"), { silent: true });
 
 const mockImpl = new MockAsyncStorage();
 jest.mock("@react-native-async-storage/async-storage", () => mockImpl);
