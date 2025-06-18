@@ -28,7 +28,7 @@
     "aws-amplify": "^5.3.11",
     "core-js": "^3.31.1",
     "expo": "^52.0.46",
-    "expo-dev-client": "~5.0.20",
+    "expo-dev-client": "~5.2.0",
     "expo-file-system": "~18.0.12",
     "expo-splash-screen": "~0.29.24",
     "expo-sqlite": "~15.1.4",
