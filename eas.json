@@ -7,9 +7,6 @@
         "development": {
             "developmentClient": true,
             "distribution": "internal",
-            "ios": {
-                "simulator": true
-            },
             "env": {
                 "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://a7rbdicqprdchctegugqnoz6wi.appsync-api.eu-west-1.amazonaws.com/graphql",
                 "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-kjw5bpnkofhnxhsogf6af66xau",
