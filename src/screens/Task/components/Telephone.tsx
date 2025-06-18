@@ -1,5 +1,5 @@
 import { Linking, View } from "react-native";
-import { Text, TouchableRipple, IconButton } from "react-native-paper";
+import { Text, TouchableRipple } from "react-native-paper";
 import Foundation from "@expo/vector-icons/Foundation";
 
 type TelephoneProps = {
@@ -20,8 +20,8 @@ const Telephone: React.FC<TelephoneProps> = ({ telephoneNumber }) => {
                     gap: 10,
                 }}
             >
-                <Text>
-                    <Foundation name="telephone" size={24} />
+                <Text style={{ marginLeft: 3 }}>
+                    <Foundation name="telephone" size={30} />
                 </Text>
                 <Text>{telephoneNumber}</Text>
             </View>
