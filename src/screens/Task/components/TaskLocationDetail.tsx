@@ -15,6 +15,7 @@ import GenericError from "../../Errors/GenericError";
 import WhatThreeWords from "./WhatThreeWords";
 import Telephone from "./Telephone";
 import ScheduleDetails from "./ScheduleDetails";
+import Person from "./Person";
 
 type TaskLocationDetailProps = {
     locationId?: string | null;
@@ -187,11 +188,21 @@ const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
                             }}
                         />
                     )}
-                    {state?.contact && (
-                        <Telephone
-                            telephoneNumber={state.contact.telephoneNumber!}
-                        />
-                    )}
+                    <View
+                        style={{
+                            flexDirection: "column",
+                            gap: 10,
+                        }}
+                    >
+                        {state?.contact?.name && (
+                            <Person name={state.contact.name} />
+                        )}
+                        {state?.contact?.telephoneNumber && (
+                            <Telephone
+                                telephoneNumber={state.contact.telephoneNumber!}
+                            />
+                        )}
+                    </View>
                     {schedule && (
                         <Divider
                             style={{
