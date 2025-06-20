@@ -32,7 +32,7 @@ const TaskAssigneesDetail: React.FC<TaskAssigneesDetailProps> = ({
         );
     } else {
         return (
-            <Card>
+            <Card mode="outlined">
                 <Card.Title title="Assignees" />
                 <DividerWithBottomMargin />
                 <Card.Content

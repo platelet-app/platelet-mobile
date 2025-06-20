@@ -11,7 +11,7 @@ type TaskInventoryDetailProps = {
 
 const CardWrapper = ({ children }: { children: React.ReactNode }) => {
     return (
-        <Card>
+        <Card mode="outlined">
             <Card.Title title="Inventory" />
             <DividerWithBottomMargin />
             <Card.Content>{children}</Card.Content>

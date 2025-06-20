@@ -75,6 +75,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onPress, tabIndex }) => {
             onLongPress={(e) => handleSelect(e)}
         >
             <TaskCardChips
+                status={task.status as models.TaskStatus}
+                pickUpSchedule={task.pickUpSchedule}
+                dropOffSchedule={task.dropOffSchedule}
                 limit={cutOff}
                 deliverables={deliverables}
                 priority={task.priority}

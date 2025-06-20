@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Linking, Platform, View } from "react-native";
 import * as models from "../../../models";
 import {
     Text,
@@ -8,14 +9,18 @@ import {
     useTheme,
 } from "react-native-paper";
 import useModelSubscription from "../../../hooks/useModelSubscription";
-import LabelItemPair from "./LabelItemPair";
 import DividerWithBottomMargin from "../../../components/DividerWithBottomMargin";
 import ContentLoader, { Rect } from "react-content-loader/native";
 import GenericError from "../../Errors/GenericError";
+import WhatThreeWords from "./WhatThreeWords";
+import Telephone from "./Telephone";
+import ScheduleDetails from "./ScheduleDetails";
+import Person from "./Person";
 
 type TaskLocationDetailProps = {
     locationId?: string | null;
     title: string;
+    schedule?: models.Schedule | null;
 };
 
 type TaskLocationDetailFields = {
@@ -31,11 +36,6 @@ type TaskLocationDetailFields = {
     what3words?: string | null;
 };
 
-type TaskContactDetailFields = {
-    name?: string | null;
-    telephoneNumber?: string | null;
-};
-
 const fields = {
     ward: "Ward",
     line1: "Line one",
@@ -47,11 +47,6 @@ const fields = {
     postcode: "Postcode",
 };
 
-const contactFields = {
-    name: "Name",
-    telephoneNumber: "Telephone",
-};
-
 const CardWrapper = ({
     children,
     title,
@@ -60,7 +55,7 @@ const CardWrapper = ({
     title: string;
 }) => {
     return (
-        <Card>
+        <Card mode="outlined">
             <Card.Title title={title} />
             <DividerWithBottomMargin />
             {children}
@@ -71,29 +66,25 @@ const CardWrapper = ({
 const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
     locationId,
     title,
+    schedule,
 }) => {
-    const [showHidden, setShowHidden] = React.useState(false);
     const { state, isFetching, error } = useModelSubscription<models.Location>(
         models.Location,
         locationId
     );
-    const { colors } = useTheme();
-    const hiddenFields = ["line2", "line3", "county", "town", "country"];
-    const wholeAddress = React.useMemo(
-        () =>
-            Object.keys(fields).reduce((acc, key) => {
-                const value = state?.[key as keyof TaskLocationDetailFields];
-                if (value && acc) {
-                    return `${acc}
-${value}`;
-                } else if (value) {
-                    return value;
-                } else {
-                    return acc;
-                }
-            }, ""),
-        [state]
-    );
+    const { colors, dark } = useTheme();
+
+    const addressString = !state
+        ? ""
+        : Object.keys(fields)
+              .filter((v) => !["what3words"].includes(v))
+              .map((key) => state[key as keyof TaskLocationDetailFields])
+              .filter((v) => v)
+              .join(", ");
+    const mapsUrl = Platform.select({
+        ios: `maps://0,0?q=${addressString}`,
+        android: `geo:0,0?q=${addressString}`,
+    });
     if (error) {
         return <GenericError />;
     } else if (isFetching) {
@@ -165,67 +156,64 @@ ${value}`;
         return (
             <CardWrapper title={title}>
                 <Card.Content style={{ gap: 8 }}>
-                    {showHidden && (
-                        <Text style={{ textAlign: "right" }} selectable>
-                            {wholeAddress}
-                        </Text>
-                    )}
                     <TouchableRipple
-                        onPress={() => {
-                            setShowHidden(true);
+                        onLongPress={() => {}}
+                        onPress={() => mapsUrl && Linking.openURL(mapsUrl)}
+                    >
+                        <View style={{ gap: 8 }}>
+                            <Text style={{ fontWeight: "bold" }}>
+                                {state?.name}
+                            </Text>
+                            <Text selectable>{addressString}</Text>
+                        </View>
+                    </TouchableRipple>
+                    {state?.what3words && (
+                        <>
+                            <Divider
+                                style={{
+                                    width: "100%",
+                                    alignSelf: "center",
+                                }}
+                            />
+                            <WhatThreeWords what3words={state.what3words} />
+                        </>
+                    )}
+                    {(state?.contact?.name ||
+                        state?.contact?.telephoneNumber) && (
+                        <Divider
+                            style={{
+                                marginTop: 8,
+                                width: "100%",
+                                alignSelf: "center",
+                            }}
+                        />
+                    )}
+                    <View
+                        style={{
+                            flexDirection: "column",
+                            gap: 10,
                         }}
                     >
-                        <>
-                            {Object.entries(fields).map(([key, label]) => {
-                                if (!showHidden && hiddenFields.includes(key)) {
-                                    return null;
-                                } else if (!showHidden) {
-                                    return (
-                                        <LabelItemPair
-                                            key={key}
-                                            label={label}
-                                            item={
-                                                state?.[
-                                                    key as keyof TaskLocationDetailFields
-                                                ]
-                                            }
-                                        />
-                                    );
-                                } else {
-                                    return null;
-                                }
-                            })}
-                            {Object.entries(contactFields).map(
-                                ([key, label]) => (
-                                    <LabelItemPair
-                                        key={key}
-                                        label={label}
-                                        item={
-                                            state?.contact?.[
-                                                key as keyof TaskContactDetailFields
-                                            ]
-                                        }
-                                    />
-                                )
-                            )}
-                        </>
-                    </TouchableRipple>
+                        {state?.contact?.name && (
+                            <Person name={state.contact.name} />
+                        )}
+                        {state?.contact?.telephoneNumber && (
+                            <Telephone
+                                telephoneNumber={state.contact.telephoneNumber!}
+                            />
+                        )}
+                    </View>
+                    {schedule && (
+                        <Divider
+                            style={{
+                                marginTop: 8,
+                                width: "100%",
+                                alignSelf: "center",
+                            }}
+                        />
+                    )}
+                    <ScheduleDetails schedule={schedule} />
                 </Card.Content>
-                <Divider
-                    style={{ marginTop: 8, width: "90%", alignSelf: "center" }}
-                />
-                <Text
-                    variant="bodyLarge"
-                    style={{
-                        padding: 8,
-                        textDecorationLine: "underline",
-                        fontStyle: "italic",
-                        alignSelf: "flex-end",
-                    }}
-                    onPress={() => setShowHidden((prevState) => !prevState)}
-                >
-                    {showHidden ? "See less" : "See more"}
-                </Text>
             </CardWrapper>
         );
     }

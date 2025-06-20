@@ -26,7 +26,7 @@ const isToday = (time: string | undefined | null) => {
 
 const CardWrapper = ({ children }: { children: React.ReactNode }) => {
     return (
-        <Card>
+        <Card mode="outlined">
             <Card.Content>{children}</Card.Content>
         </Card>
     );

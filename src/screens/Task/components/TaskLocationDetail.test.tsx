@@ -30,19 +30,19 @@ describe("TaskLocationDetail", () => {
                 postcode: "12345",
                 contact: {
                     name: "John Smith",
-                    telephoneNumber: "1234567890",
+                    telephoneNumber: "9999999",
                 },
             })
         );
         render(<TaskLocationDetail title="Pick up" locationId={location.id} />);
         screen.getByTestId("task-location-skeleton");
         await finishLoading();
-        await screen.findByText("123 Main St");
-        screen.getByText("Pick up");
-        screen.getByText("Ward 1");
-        screen.getByText("12345");
-        screen.getByText("John Smith");
-        screen.getByText("1234567890");
+        await screen.findByText(/123 Main St/);
+        screen.getByText(/Pick up/);
+        screen.getByText(/Ward 1/);
+        screen.getByText(/12345/);
+        screen.getByText(/John Smith/);
+        screen.getByText(/9999999/);
     });
 
     test("no location set", async () => {
@@ -83,7 +83,7 @@ describe("TaskLocationDetail", () => {
             <TaskLocationDetail title="Pick up" locationId={location.id} />
         );
         await finishLoading();
-        await screen.findByText("123 Main St");
+        await screen.findByText(/123 Main St/);
         await DataStore.save(
             models.Location.copyOf(location, (updated) => {
                 updated.line1 = "456 Main St";
@@ -93,7 +93,7 @@ describe("TaskLocationDetail", () => {
                 };
             })
         );
-        await screen.findByText("456 Main St");
+        await screen.findByText(/456 Main St/);
         expect(screen.queryByText("123 Main St")).toBeNull();
         screen.getByText("Jane Smith");
         screen.getByText("0987654321");
