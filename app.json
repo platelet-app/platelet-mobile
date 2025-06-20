@@ -43,7 +43,8 @@
                     "project": "react-native",
                     "url": "https://sentry.io"
                 }
-            ]
+            ],
+            "expo-localization"
         ]
     }
 }

@@ -1,6 +1,7 @@
 import * as models from "../../models";
 import { View } from "react-native";
 import { Chip, useTheme } from "react-native-paper";
+import { useTranslation } from "react-i18next";
 
 type CommentVisibilityChipsProps = {
     value: models.CommentVisibility;
@@ -12,6 +13,7 @@ const CommentVisibilityChips: React.FC<CommentVisibilityChipsProps> = ({
     onChange,
 }) => {
     const { colors } = useTheme();
+    const { t } = useTranslation();
     return (
         <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
             {Object.values(models.CommentVisibility).map((visibility) => (
@@ -22,7 +24,7 @@ const CommentVisibilityChips: React.FC<CommentVisibilityChipsProps> = ({
                     selectedColor={colors.primary}
                     onPress={() => onChange(visibility)}
                 >
-                    {visibility}
+                    {t(`commentVisibility.${visibility}`).toUpperCase()}
                 </Chip>
             ))}
         </View>

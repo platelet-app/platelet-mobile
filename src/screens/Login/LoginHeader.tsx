@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DataStore } from "aws-amplify";
+import { useTranslation } from "react-i18next";
 
 type LoginHeaderProps = {
     onChangeTeam?: () => void;
@@ -10,6 +11,7 @@ type LoginHeaderProps = {
 
 const LoginHeader: React.FC<LoginHeaderProps> = ({ onChangeTeam }) => {
     const [tenantName, setTenantName] = React.useState("");
+    const { t } = useTranslation();
     const getTenantName = React.useCallback(async () => {
         const tenant = await AsyncStorage.getItem("tenantName");
         if (tenant) setTenantName(tenant);
@@ -37,7 +39,7 @@ const LoginHeader: React.FC<LoginHeaderProps> = ({ onChangeTeam }) => {
         >
             <Text>{tenantName}</Text>
             <Button mode="contained" onPress={handleChangeTeam}>
-                Change Team
+                {t("changeTeam")}
             </Button>
         </View>
     );

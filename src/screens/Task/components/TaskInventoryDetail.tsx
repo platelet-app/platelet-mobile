@@ -4,15 +4,17 @@ import useTaskDeliverables from "../../../hooks/useTaskDeliverables";
 import DividerWithBottomMargin from "../../../components/DividerWithBottomMargin";
 import GenericError from "../../Errors/GenericError";
 import ContentLoader, { Rect } from "react-content-loader/native";
+import { useTranslation } from "react-i18next";
 
 type TaskInventoryDetailProps = {
     taskId: string;
 };
 
 const CardWrapper = ({ children }: { children: React.ReactNode }) => {
+    const { t } = useTranslation();
     return (
         <Card mode="outlined">
-            <Card.Title title="Inventory" />
+            <Card.Title title={t("inventory")} />
             <DividerWithBottomMargin />
             <Card.Content>{children}</Card.Content>
         </Card>

@@ -1,11 +1,13 @@
 import * as React from "react";
 import SmallChip from "./SmallChip";
+import { useTranslation } from "react-i18next";
 
 type PriorityChipProps = {
     priority: "HIGH" | "MEDIUM" | "LOW" | null;
 };
 
 const PriorityChip: React.FC<PriorityChipProps> = ({ priority }) => {
+    const { t } = useTranslation();
     let borderColor = "";
     if (priority === "HIGH") {
         borderColor = "red";
@@ -22,7 +24,7 @@ const PriorityChip: React.FC<PriorityChipProps> = ({ priority }) => {
                 marginRight: 4,
             }}
         >
-            {priority}
+            {priority ? t(`priorityLabel.${priority}`).toUpperCase() : ""}
         </SmallChip>
     );
 };

@@ -4,6 +4,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import taskScheduleDueStatus from "../../../utilities/taskScheduleDueStatus";
 import taskScheduleOverDueStatus from "../../../utilities/taskScheduleOverDueStatus";
 import SmallChip from "./SmallChip";
+import { useTranslation } from "react-i18next";
 import humanReadableScheduleString from "../../../utilities/humanReadableScheduleString";
 import { Text } from "react-native-paper";
 import { View } from "react-native";
@@ -31,7 +32,8 @@ const ScheduleChip: React.FC<ScheduleChipProps> = ({
         color: iconColor,
         size: 20,
     });
-    let message = humanReadableScheduleString(schedule, true);
+    const { t } = useTranslation();
+    let message = humanReadableScheduleString(t, schedule, true);
     if (message.length > 16) {
         message = message.substring(0, 16) + "...";
     }

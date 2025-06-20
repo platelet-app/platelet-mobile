@@ -1,21 +1,22 @@
 import moment from "moment";
 import * as models from "../models";
 
-const getDayString = (date: Date | string) => {
-    return moment(date).calendar(null, {
-        lastDay: "[Yesterday]",
-        sameDay: "[Today]",
-        nextDay: "[Tomorrow]",
-        lastWeek: "[last] dddd",
-        nextWeek: "dddd",
-        sameElse: "L",
-    });
-};
-
 const humanReadableScheduleString = (
+    t: (key: string) => string,
     schedule: models.Schedule | null,
     shortened = false
 ) => {
+    const getDayString = (date: Date | string) => {
+        return moment(date).calendar(null, {
+            lastDay: `[${t("yesterday")}]`,
+            sameDay: `[${t("today")}]`,
+            nextDay: `[${t("tomorrow")}]`,
+            lastWeek: `[${t("last")}] dddd`,
+            nextWeek: "dddd",
+            sameElse: "L",
+        });
+    };
+
     if (!schedule) return "";
     let result = "";
     if (schedule.timePrimary) {
@@ -27,42 +28,24 @@ const humanReadableScheduleString = (
     }
     switch (schedule.relation) {
         case models.TimeRelation.ANYTIME:
-            if (shortened) {
-                result += "At any time";
-            } else {
-                result += " at any time";
-            }
+            result += shortened ? t("atAnyTime") : ` ${t("atAnyTime")}`;
             break;
         case models.TimeRelation.BEFORE:
-            if (shortened) {
-                result += "Before";
-            } else {
-                result += " before";
-            }
+            result += shortened ? t("before") : ` ${t("before")}`;
             break;
         case models.TimeRelation.AFTER:
-            if (shortened) {
-                result += "After";
-            } else {
-                result += " after";
-            }
+            result += shortened ? t("after") : ` ${t("after")}`;
             break;
         case models.TimeRelation.BETWEEN:
-            if (!shortened) {
-                result += " between";
-            }
+            if (!shortened) result += ` ${t("between")}`;
             break;
         case models.TimeRelation.AT:
-            if (shortened) {
-                result += "At";
-            } else {
-                result += " at";
-            }
+            result += shortened ? t("at") : ` ${t("at")}`;
             break;
     }
-    let connector = "and";
+    let connector = t("and");
     if (shortened && schedule.relation === models.TimeRelation.BETWEEN) {
-        connector = "to";
+        connector = t("to");
     }
     if (
         schedule.timePrimary &&
@@ -85,7 +68,7 @@ const humanReadableScheduleString = (
         ) {
             let timeSecondaryDayString = getDayString(schedule.timeSecondary);
             if (
-                ["Today", "Tomorrow", "Yesterday"].includes(
+                [t("today"), t("tomorrow"), t("yesterday")].includes(
                     timeSecondaryDayString
                 )
             ) {
@@ -95,7 +78,9 @@ const humanReadableScheduleString = (
             const secondaryTimeString = moment(schedule.timeSecondary).format(
                 "HH:mm"
             );
-            result += ` ${connector} ${timeSecondaryDayString} at ${secondaryTimeString}`;
+            result += ` ${connector} ${timeSecondaryDayString} ${t(
+                "at"
+            )} ${secondaryTimeString}`;
         } else {
             result += ` ${connector} ${moment(schedule.timeSecondary).format(
                 "HH:mm"

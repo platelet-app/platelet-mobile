@@ -16,6 +16,7 @@ import WhatThreeWords from "./WhatThreeWords";
 import Telephone from "./Telephone";
 import ScheduleDetails from "./ScheduleDetails";
 import Person from "./Person";
+import { useTranslation } from "react-i18next";
 
 type TaskLocationDetailProps = {
     locationId?: string | null;
@@ -73,6 +74,7 @@ const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
         locationId
     );
     const { colors, dark } = useTheme();
+    const { t } = useTranslation();
 
     const addressString = !state
         ? ""
@@ -89,7 +91,7 @@ const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
         return <GenericError />;
     } else if (isFetching) {
         return (
-            <CardWrapper title={title}>
+            <CardWrapper title={t(title)}>
                 <Card.Content>
                     <ContentLoader
                         testID="task-location-skeleton"
@@ -146,7 +148,7 @@ const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
         );
     } else if (state === null) {
         return (
-            <CardWrapper title={title}>
+            <CardWrapper title={t(title)}>
                 <Card.Content>
                     <Text>No location set.</Text>
                 </Card.Content>
@@ -154,7 +156,7 @@ const TaskLocationDetail: React.FC<TaskLocationDetailProps> = ({
         );
     } else {
         return (
-            <CardWrapper title={title}>
+            <CardWrapper title={t(title)}>
                 <Card.Content style={{ gap: 8 }}>
                     <TouchableRipple
                         onLongPress={() => {}}
