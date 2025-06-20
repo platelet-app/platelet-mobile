@@ -1,6 +1,8 @@
 import { Chip } from "react-native-paper";
 import * as models from "../../../models";
 import SmallChip from "./SmallChip";
+import { useTranslation } from "react-i18next";
+import taskStatusHumanReadable from "../../../utilities/taskStatusHumanReadable";
 //import { TaskStatus } from "../API";
 
 const generateLabel = (status: models.TaskStatus) => {
@@ -23,8 +25,9 @@ const TaskStatusChip: React.FC<TaskStatusChipProps> = ({
     status = models.TaskStatus.NEW,
     style = {},
 }) => {
+    const { t } = useTranslation();
     if (status) {
-        return <SmallChip style={style}>{generateLabel(status)}</SmallChip>;
+        return <SmallChip style={style}>{taskStatusHumanReadable(t, status)}</SmallChip>;
     } else {
         return <></>;
     }

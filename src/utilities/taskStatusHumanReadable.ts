@@ -1,13 +1,13 @@
 import * as models from "../models";
 
 const taskStatusHumanReadable = (
+    t: (key: string) => string,
     status: models.TaskStatus | null | undefined
 ) => {
     if (!status) {
         return "";
     }
-    if (status === models.TaskStatus.DROPPED_OFF) return "DELIVERED";
-    return status.replace(/_/g, " ");
+    return t(`status.${status}`).toUpperCase();
 };
 
 export default taskStatusHumanReadable;

@@ -1,7 +1,9 @@
 import { Text } from "react-native-paper";
+import { useTranslation } from "react-i18next";
 
 const GenericError = () => {
-    return <Text>Sorry, something went wrong</Text>;
+    const { t } = useTranslation();
+    return <Text>{t("sorrySomethingWentWrong")}</Text>;
 };
 
 export default GenericError;

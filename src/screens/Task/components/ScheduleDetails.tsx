@@ -5,6 +5,7 @@ import { Text } from "react-native-paper";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import taskScheduleDueStatus from "../../../utilities/taskScheduleDueStatus";
 import taskScheduleOverDueStatus from "../../../utilities/taskScheduleOverDueStatus";
+import { useTranslation } from "react-i18next";
 import humanReadableScheduleString from "../../../utilities/humanReadableScheduleString";
 
 type ScheduleDetailsProps = {
@@ -20,6 +21,8 @@ const ScheduleDetails: React.FC<ScheduleDetailsProps> = ({ schedule }) => {
     if (dueStatus) iconColor = "orange";
     if (overDueStatus) iconColor = "red";
 
+    const { t } = useTranslation();
+
     return (
         <View
             style={{
@@ -32,7 +35,7 @@ const ScheduleDetails: React.FC<ScheduleDetailsProps> = ({ schedule }) => {
             <Text>
                 <FontAwesome5 color={iconColor} size={20} name="clock" />
             </Text>
-            <Text>{humanReadableScheduleString(schedule)}</Text>
+            <Text>{humanReadableScheduleString(t, schedule)}</Text>
         </View>
     );
 };

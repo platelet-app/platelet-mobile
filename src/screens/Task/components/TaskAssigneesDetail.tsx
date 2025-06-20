@@ -4,6 +4,7 @@ import DividerWithBottomMargin from "../../../components/DividerWithBottomMargin
 import UserChip from "../../../components/UserChip";
 import useTaskAssignees from "../../../hooks/useTaskAssignees";
 import GenericError from "../../Errors/GenericError";
+import { useTranslation } from "react-i18next";
 
 type TaskAssigneesDetailProps = {
     taskId: string;
@@ -14,6 +15,7 @@ const TaskAssigneesDetail: React.FC<TaskAssigneesDetailProps> = ({
 }) => {
     const { state, isFetching, error } = useTaskAssignees(taskId);
     const { colors } = useTheme();
+    const { t } = useTranslation();
     if (error) {
         return <GenericError />;
     } else if (isFetching) {
@@ -33,7 +35,7 @@ const TaskAssigneesDetail: React.FC<TaskAssigneesDetailProps> = ({
     } else {
         return (
             <Card mode="outlined">
-                <Card.Title title="Assignees" />
+                <Card.Title title={t("assignees")} />
                 <DividerWithBottomMargin />
                 <Card.Content
                     style={{

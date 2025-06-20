@@ -3,6 +3,7 @@ import "@testing-library/jest-native/extend-expect";
 import mockSafeAreaContext from "react-native-safe-area-context/jest/mock";
 import { load } from "@expo/env";
 import path from "path";
+import i18n from "./src/i18n";
 
 // Load Expo environment variables from your project's root .env files
 load(path.resolve(__dirname, "../"), { silent: true });
@@ -29,3 +30,5 @@ RESET_MODULE_EXCEPTIONS.forEach((moduleName) => {
         return mockActualRegistry[moduleName];
     });
 });
+
+i18n.changeLanguage("en");

@@ -1,6 +1,7 @@
 import { Text, useTheme } from "react-native-paper";
 import { View } from "react-native";
 import { Linking } from "react-native";
+import { useTranslation } from "react-i18next";
 
 type LabelItemPairProps = {
     label: string;
@@ -16,9 +17,10 @@ const LabelItemPair: React.FC<LabelItemPairProps> = ({
     tel = false,
 }) => {
     const theme = useTheme();
+    const { t } = useTranslation();
     let text = item;
     if (!item && showUnset) {
-        text = "Unset";
+        text = t("unset");
     }
 
     const handleOnPress = (telephoneNumber: string | null | undefined) => {

@@ -8,6 +8,7 @@ import CommentAuthor from "./CommentAuthor";
 import { DataStore } from "aws-amplify";
 import { View } from "react-native";
 import GenericErrorSnack from "../../snacks/GenericErrorSnack";
+import { useTranslation } from "react-i18next";
 
 type NewCommentCardProps = {
     parentId: string;
@@ -24,6 +25,7 @@ const NewCommentCard: React.FC<NewCommentCardProps> = ({ parentId }) => {
         );
     const whoami = useSelector(getWhoami);
     const tenantId = useSelector(tenantIdSelector);
+    const { t } = useTranslation();
 
     const handlePost = async () => {
         setIsPosting(true);
@@ -55,9 +57,9 @@ const NewCommentCard: React.FC<NewCommentCardProps> = ({ parentId }) => {
         setResetTextInput(!resetTextInput);
     };
 
-    let placeHolder = "Write a comment...";
+    let placeHolder = t("writeAComment");
     if (visibility === models.CommentVisibility.ME) {
-        placeHolder = "Write a private note...";
+        placeHolder = t("writeAPrivateNote");
     }
 
     return (
@@ -95,13 +97,13 @@ const NewCommentCard: React.FC<NewCommentCardProps> = ({ parentId }) => {
                         disabled={isPosting || !!!body}
                         onPress={handleDiscard}
                     >
-                        Discard
+                        {t("discard")}
                     </Button>
                     <Button
                         disabled={isPosting || !!!body}
                         onPress={handlePost}
                     >
-                        Post
+                        {t("post")}
                     </Button>
                 </Card.Actions>
             </Card>

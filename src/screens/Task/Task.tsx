@@ -11,6 +11,7 @@ import TaskInventoryDetail from "./components/TaskInventoryDetail";
 import TaskAssigneesDetail from "./components/TaskAssigneesDetail";
 import GenericError from "../Errors/GenericError";
 import CommentsSection from "../../components/CommentsSection/CommentsSection";
+import { useTranslation } from "react-i18next";
 
 type TaskProps = {
     route: any;
@@ -27,15 +28,14 @@ const Task: React.FC<TaskProps> = ({ route, navigation }) => {
     const [dropOffLocationId, setDropOffLocationId] = React.useState<
         string | null | undefined
     >(undefined);
+    const { t } = useTranslation();
 
     React.useEffect(() => {
-        const label = taskStatusHumanReadable(
-            state?.status as models.TaskStatus
-        );
+        const label = taskStatusHumanReadable(t, state?.status as models.TaskStatus);
         navigation.setOptions({
             title: label || "",
         });
-    }, [state?.status, navigation]);
+    }, [state?.status, navigation, t]);
 
     const resolveLocations = React.useCallback(async () => {
         if (isFetching) return;
@@ -64,13 +64,12 @@ const Task: React.FC<TaskProps> = ({ route, navigation }) => {
                 <TaskActions taskId={taskId} />
                 <TaskLocationDetail
                     locationId={pickUpLocationId}
-                    title="Collect from"
+                    title={t("collectFrom")}
                     schedule={state?.pickUpSchedule}
                 />
-
                 <TaskLocationDetail
                     locationId={dropOffLocationId}
-                    title="Deliver to"
+                    title={t("deliverTo")}
                     schedule={state?.dropOffSchedule}
                 />
                 <TaskInventoryDetail taskId={taskId} />

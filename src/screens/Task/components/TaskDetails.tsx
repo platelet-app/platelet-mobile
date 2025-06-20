@@ -6,6 +6,7 @@ import LabelItemPair from "./LabelItemPair";
 import moment from "moment";
 import GenericError from "../../Errors/GenericError";
 import ContentLoader, { Rect } from "react-content-loader/native";
+import { useTranslation } from "react-i18next";
 
 type TaskDetailsProps = {
     taskId: string;
@@ -38,6 +39,7 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({ taskId }) => {
         taskId
     );
     const { colors } = useTheme();
+    const { t } = useTranslation();
 
     let calendarTime = "";
     const momentFormat = "DD/MM/YYYY, HH:mm";
@@ -78,18 +80,18 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({ taskId }) => {
                 {state?.timeOfCall && (
                     <LabelItemPair
                         showUnset
-                        label="Time of call"
+                        label={t("timeOfCall")}
                         item={calendarTime || ""}
                     />
                 )}
                 <LabelItemPair
                     showUnset
-                    label="Priority"
-                    item={state?.priority || ""}
+                    label={t("priority")}
+                    item={state?.priority ? t(`priorityLabel.${state.priority}`).toUpperCase() : ""}
                 />
                 <LabelItemPair
                     showUnset
-                    label="Rider role"
+                    label={t("riderRole")}
                     item={state?.riderResponsibility || ""}
                 />
             </CardWrapper>

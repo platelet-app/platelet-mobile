@@ -10,22 +10,16 @@ import determineTaskStatus, {
 import TaskTimePicker from "./TaskTimePicker";
 import TaskActionsConfirmationDialog from "./TaskActionsConfirmationDialog";
 import GenericErrorSnack from "../../../snacks/GenericErrorSnack";
+import { useTranslation } from "react-i18next";
 
 type TaskActionsProps = {
     taskId: string;
 };
 
-const fields = {
-    timePickedUp: "Picked up",
-    timeDroppedOff: "Delivered",
-    timeCancelled: "Cancelled",
-    timeRejected: "Rejected",
-    timeRiderHome: "Rider home",
-};
-
 export type TaskUpdateKey = keyof Omit<TaskInterface, "id">;
 
 const TaskActions: React.FC<TaskActionsProps> = ({ taskId }) => {
+    const { t } = useTranslation();
     const [buttonsState, setButtonsState] = React.useState<TaskUpdateKey[]>([]);
     const [isPosting, setIsPosting] = React.useState(false);
     const [confirmationKey, setConfirmationKey] =
@@ -164,6 +158,17 @@ const TaskActions: React.FC<TaskActionsProps> = ({ taskId }) => {
     else if ([confirmationKey, editKey].includes("timeDroppedOff"))
         nameKey = "timeDroppedOffRecipientName";
 
+    const fields = React.useMemo(
+        () => ({
+            timePickedUp: t("status.PICKED_UP"),
+            timeDroppedOff: t("status.DROPPED_OFF"),
+            timeCancelled: t("status.CANCELLED"),
+            timeRejected: t("status.REJECTED"),
+            timeRiderHome: t("riderHome"),
+        }),
+        [t]
+    );
+
     return (
         <>
             <Card mode="outlined">
@@ -218,7 +223,7 @@ const TaskActions: React.FC<TaskActionsProps> = ({ taskId }) => {
                                         disabled={checkDisabled(
                                             key as TaskUpdateKey
                                         )}
-                                        aria-label={value}
+                                        aria-label={t(value)}
                                         onPress={() => {
                                             onClickToggle(key as TaskUpdateKey);
                                         }}
@@ -254,7 +259,7 @@ const TaskActions: React.FC<TaskActionsProps> = ({ taskId }) => {
                                                 textTransform: "uppercase",
                                             }}
                                         >
-                                            {value}
+                                            {t(value)}
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
@@ -267,7 +272,7 @@ const TaskActions: React.FC<TaskActionsProps> = ({ taskId }) => {
                                         time={
                                             state?.[key as keyof TaskInterface]
                                         }
-                                        label={`Edit ${value}`}
+                                        label={t("edit") + " " + t(value)}
                                         onClickEdit={() =>
                                             onClickEdit(key as TaskUpdateKey)
                                         }

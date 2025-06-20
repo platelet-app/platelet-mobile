@@ -14,6 +14,7 @@ import generateMultipleTaskTimeModels from "../utilities/generateMultipleTaskTim
 import { DataStore } from "aws-amplify";
 import generateMultipleTaskComments from "../utilities/generateMultipleTaskComments";
 import { useFocusEffect } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 type MultipleSelectionMenuProps = {
     tabIndex: number;
@@ -61,6 +62,7 @@ const MultipleSelectionMenu: React.FC<MultipleSelectionMenuProps> = ({
     tabIndex,
     style = {},
 }) => {
+    const { t } = useTranslation();
     const [visible, setVisible] = React.useState(false);
     const [selectedAction, setSelectedAction] = React.useState<actions | null>(
         null
@@ -215,7 +217,7 @@ const MultipleSelectionMenu: React.FC<MultipleSelectionMenuProps> = ({
             >
                 <IconButton
                     icon="package-up"
-                    aria-label="Mark selected picked up"
+                    aria-label={t("markSelectedPickedUp")}
                     onPress={() => {
                         setSelectedAction(actions.markPickedUp);
                     }}
@@ -223,7 +225,7 @@ const MultipleSelectionMenu: React.FC<MultipleSelectionMenuProps> = ({
                 />
                 <IconButton
                     icon="package-down"
-                    aria-label="Mark selected delivered"
+                    aria-label={t("markSelectedDelivered")}
                     onPress={() => {
                         setSelectedAction(actions.markDelivered);
                     }}
@@ -231,7 +233,7 @@ const MultipleSelectionMenu: React.FC<MultipleSelectionMenuProps> = ({
                 />
                 <IconButton
                     icon="home"
-                    aria-label="Mark selected rider home"
+                    aria-label={t("markSelectedRiderHome")}
                     onPress={() => {
                         setSelectedAction(actions.markRiderHome);
                     }}
@@ -242,28 +244,28 @@ const MultipleSelectionMenu: React.FC<MultipleSelectionMenuProps> = ({
                     onDismiss={closeMenu}
                     anchor={
                         <IconButton
-                            aria-label="More options"
+                            aria-label={t("moreOptions")}
                             icon="dots-vertical"
                             onPress={openMenu}
                         />
                     }
                 >
                     <Menu.Item
-                        aria-label="Mark selected cancelled"
+                        aria-label={t("markSelectedCancelled")}
                         onPress={() => {
                             setVisible(false);
                             setSelectedAction(actions.markCancelled);
                         }}
-                        title="Cancelled"
+                        title={t("cancelled")}
                         disabled={checkButtonDisabled(actions.markCancelled)}
                     />
                     <Menu.Item
-                        aria-label="Mark selected rejected"
+                        aria-label={t("markSelectedRejected")}
                         onPress={() => {
                             setVisible(false);
                             setSelectedAction(actions.markRejected);
                         }}
-                        title="Rejected"
+                        title={t("rejected")}
                         disabled={checkButtonDisabled(actions.markRejected)}
                     />
                 </Menu>

@@ -6,6 +6,7 @@ import moment from "moment";
 import { TouchableOpacity } from "react-native";
 import TaskDateTimeTextInput from "./TaskDateTimeTextInput";
 import useKeyboardHeight from "../../../hooks/useKeyboardHeight";
+import { useTranslation } from "react-i18next";
 
 type Value = {
     [K in TaskUpdateKey]?: string;
@@ -26,13 +27,14 @@ type TaskActionsConfirmationDialogProps = {
 };
 
 const humanReadableName = (
-    nameKey: "timePickedUpSenderName" | "timeDroppedOffRecipientName"
+    nameKey: "timePickedUpSenderName" | "timeDroppedOffRecipientName",
+    t: (key: string) => string
 ) => {
     switch (nameKey) {
         case "timePickedUpSenderName":
-            return "Sender name";
+            return t("senderName");
         case "timeDroppedOffRecipientName":
-            return "Recipient name";
+            return t("recipientName");
         default:
             return "";
     }
@@ -40,29 +42,30 @@ const humanReadableName = (
 
 const humanReadableConfirmation = (
     field: TaskUpdateKey | null,
-    nullify: boolean
+    nullify: boolean,
+    t: (key: string, options?: any) => string
 ) => {
     switch (field) {
         case "timePickedUp":
             return nullify
-                ? "Clear the picked up time?"
-                : "Set the picked up time?";
+                ? t("confirmation.clearPickedUp")
+                : t("confirmation.setPickedUp");
         case "timeDroppedOff":
             return nullify
-                ? "Clear the delivered time?"
-                : "Set the delivered time?";
+                ? t("confirmation.clearDelivered")
+                : t("confirmation.setDelivered");
         case "timeCancelled":
             return nullify
-                ? "Clear the cancelled time?"
-                : "Set the cancelled time?";
+                ? t("confirmation.clearCancelled")
+                : t("confirmation.setCancelled");
         case "timeRejected":
             return nullify
-                ? "Clear the rejected time?"
-                : "Set the rejected time?";
+                ? t("confirmation.clearRejected")
+                : t("confirmation.setRejected");
         case "timeRiderHome":
             return nullify
-                ? "Clear the rider home time?"
-                : "Set the rider home time?";
+                ? t("confirmation.clearRiderHome")
+                : t("confirmation.setRiderHome");
         default:
             return "";
     }
@@ -81,6 +84,7 @@ const TaskActionsConfirmationDialog: React.FC<TaskActionsConfirmationDialogProps
         needsReason = false,
         onChangeReasonBody,
     }) => {
+        const { t } = useTranslation();
         const [value, setValue] = React.useState<Date>(
             startingValue ? new Date(startingValue) : new Date()
         );
@@ -117,7 +121,7 @@ const TaskActionsConfirmationDialog: React.FC<TaskActionsConfirmationDialogProps
                     onDismiss={onClose}
                 >
                     <Dialog.Title>
-                        {humanReadableConfirmation(taskKey, nullify)}
+                        {humanReadableConfirmation(taskKey, nullify, t)}
                     </Dialog.Title>
                     <Dialog.Content>
                         {!nullify && (
@@ -129,7 +133,7 @@ const TaskActionsConfirmationDialog: React.FC<TaskActionsConfirmationDialogProps
                                         value={moment(value).format(
                                             "DD/MM/YYYY"
                                         )}
-                                        label="Date"
+                                        label={t("date")}
                                     />
                                 </TouchableOpacity>
                                 <TouchableOpacity
@@ -137,7 +141,7 @@ const TaskActionsConfirmationDialog: React.FC<TaskActionsConfirmationDialogProps
                                 >
                                     <TaskDateTimeTextInput
                                         value={moment(value).format("HH:mm")}
-                                        label="Time"
+                                        label={t("time")}
                                     />
                                 </TouchableOpacity>
                                 {nameKey && (
@@ -145,16 +149,16 @@ const TaskActionsConfirmationDialog: React.FC<TaskActionsConfirmationDialogProps
                                         mode="outlined"
                                         defaultValue={startingNameValue || ""}
                                         onChangeText={setNameValue}
-                                        aria-label={humanReadableName(nameKey)}
-                                        placeholder={humanReadableName(nameKey)}
+                                        aria-label={humanReadableName(nameKey, t)}
+                                        placeholder={humanReadableName(nameKey, t)}
                                     />
                                 )}
                                 {needsReason && (
                                     <TextInput
                                         mode="outlined"
                                         onChangeText={onChangeReasonBody}
-                                        aria-label="Reason"
-                                        placeholder="Reason..."
+                                        aria-label={t("reason")}
+                                        placeholder={t("reasonPlaceholder")}
                                         multiline
                                     />
                                 )}
@@ -162,8 +166,8 @@ const TaskActionsConfirmationDialog: React.FC<TaskActionsConfirmationDialogProps
                         )}
                     </Dialog.Content>
                     <Dialog.Actions>
-                        <Button onPress={onClose}>Cancel</Button>
-                        <Button onPress={handleConfirm}>OK</Button>
+                        <Button onPress={onClose}>{t("cancel")}</Button>
+                        <Button onPress={handleConfirm}>{t("ok")}</Button>
                     </Dialog.Actions>
                 </Dialog>
                 <TimePickerModal

@@ -6,6 +6,7 @@ import useMyAssignedTasks, {
     ResolvedTask,
 } from "../../../hooks/useMyAssignedTasks";
 import { Text, useTheme } from "react-native-paper";
+import { useTranslation } from "react-i18next";
 import taskStatusHumanReadable from "../../../utilities/taskStatusHumanReadable";
 import { useNavigation } from "@react-navigation/native";
 import ContentLoader, { Rect } from "react-content-loader/native";
@@ -39,6 +40,7 @@ const TasksGridTasksList = ({
     const navigation = useNavigation();
     const { colors } = useTheme();
     const dashboardFilter = useSelector(dashboardFilterTermSelector);
+    const { t } = useTranslation();
 
     const filteredTasksIds = React.useMemo(() => {
         if (!dashboardFilter) {
@@ -180,7 +182,7 @@ const TasksGridTasksList = ({
                                     fontSize: 16,
                                 }}
                             >
-                                {taskStatusHumanReadable(title)}
+                                {taskStatusHumanReadable(t, title)}
                             </Text>
                         </View>
                     )}

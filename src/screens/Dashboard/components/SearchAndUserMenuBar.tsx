@@ -14,6 +14,7 @@ import {
     getWhoami,
 } from "../../../redux/Selectors";
 import LogoutDialog from "./LogoutDialog";
+import { useTranslation } from "react-i18next";
 
 type SearchAndUserMenuBarProps = {
     style?: React.CSSProperties;
@@ -26,6 +27,7 @@ const SearchAndUserMenuBar: React.FC<SearchAndUserMenuBarProps> = ({
     const currentFilter = useSelector(dashboardFilterTextboxValueSelector);
     const whoami = useSelector(getWhoami);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
     const handleChange = (
         e: NativeSyntheticEvent<TextInputChangeEventData>
     ) => {
@@ -54,7 +56,7 @@ const SearchAndUserMenuBar: React.FC<SearchAndUserMenuBarProps> = ({
                 style={{ flex: 1 }}
                 onChange={handleChange}
                 value={currentFilter}
-                placeholder="Filter..."
+                placeholder={t("filter")}
                 onIconPress={() => {
                     if (ref.current) ref.current.focus();
                 }}

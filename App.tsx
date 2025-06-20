@@ -13,8 +13,6 @@ import { store } from "./src/redux";
 import { Provider } from "react-redux";
 import { Logger } from "aws-amplify";
 import { enGB, registerTranslation } from "react-native-paper-dates";
-import * as moment from "moment";
-import "moment/locale/en-gb";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { useColorScheme, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -24,6 +22,9 @@ import TenantListProvider from "./src/screens/TenantPicker/TenantListProvider";
 import Login from "./src/screens/Login/Login";
 import * as _ from "lodash";
 import * as Sentry from "@sentry/react-native";
+import "./src/i18n";
+import useSetMomentLocalization from "./src/hooks/useSetMomentLocalisation";
+import { useTranslation } from "react-i18next";
 
 if (process.env.EXPO_PUBLIC_SENTRY_DSN) {
     Sentry.init({
@@ -43,7 +44,6 @@ declare global {
 }
 const Tab = createMaterialBottomTabNavigator();
 
-moment.locale("en-GB");
 registerTranslation("en-GB", enGB);
 
 Logger.LOG_LEVEL = "ERROR";
@@ -112,6 +112,7 @@ const Completed = () => {
 };
 
 function InProgressStack() {
+    const { t } = useTranslation();
     return (
         <Stack.Navigator
             initialRouteName="Home"
@@ -122,17 +123,21 @@ function InProgressStack() {
             <Stack.Screen
                 name="Home"
                 component={InProgress}
-                options={{ header: () => <DashboardHeader tabIndex={0} /> }}
+                options={{
+                    header: () => <DashboardHeader tabIndex={0} />,
+                    title: t("home"),
+                }}
             />
             <Stack.Screen
                 name="Task"
                 component={Task}
-                options={{ title: "Task" }}
+                options={{ title: t("task") }}
             />
         </Stack.Navigator>
     );
 }
 function CompletedStack() {
+    const { t } = useTranslation();
     return (
         <Stack.Navigator
             initialRouteName="Home"
@@ -143,12 +148,15 @@ function CompletedStack() {
             <Stack.Screen
                 name="Home"
                 component={Completed}
-                options={{ header: () => <DashboardHeader tabIndex={1} /> }}
+                options={{
+                    header: () => <DashboardHeader tabIndex={1} />,
+                    title: t("home"),
+                }}
             />
             <Stack.Screen
                 name="Task"
                 component={Task}
-                options={{ title: "Task" }}
+                options={{ title: t("task") }}
             />
         </Stack.Navigator>
     );
@@ -156,6 +164,7 @@ function CompletedStack() {
 
 const Main = () => {
     const colorScheme = useColorScheme();
+    const { t } = useTranslation();
 
     return (
         <NavigationContainer
@@ -173,7 +182,7 @@ const Main = () => {
                         component={InProgressStack}
                         options={{
                             tabBarIcon: "compass-outline",
-                            tabBarLabel: "In Progress",
+                            tabBarLabel: t("inProgress"),
                         }}
                     />
                     <Tab.Screen
@@ -181,7 +190,7 @@ const Main = () => {
                         component={CompletedStack}
                         options={{
                             tabBarIcon: "check-circle-outline",
-                            tabBarLabel: "Completed",
+                            tabBarLabel: t("completed"),
                         }}
                     />
                 </Tab.Navigator>
@@ -193,6 +202,8 @@ const Main = () => {
 const App = () => {
     const colorScheme = useColorScheme();
     const [tenantProviderKey, setTenantProviderKey] = React.useState(false);
+    useSetMomentLocalization();
+
     return (
         <SafeAreaProvider>
             <PaperProvider
