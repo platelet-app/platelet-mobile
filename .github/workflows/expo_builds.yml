@@ -4,10 +4,14 @@ on:
   push:
     tags:
       - 'v*.*.*'
+
 jobs:
-  build:
+  # 1. First Job: Prepare and Validate (runs without approval)
+  prepare_and_validate:
     runs-on: ubuntu-latest
-    environment: submission
+    outputs:
+      eas_profile: ${{ steps.tag_profile.outputs.eas_profile }} # Output the determined profile
+
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
@@ -18,31 +22,51 @@ jobs:
           node-version: 20.x
           cache: npm
 
-      - name: 🏗 Setup EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
       - name: 📦 Install dependencies
         run: npm ci
 
       - name: Run tests
         run: npm run test:ci
 
-      - name: Determine environment from tag
-        id: tag_env
+      - name: Determine EAS Profile from tag
+        id: tag_profile
         run: |
           TAG_NAME=${{ github.ref_name }}
-          if [[ "$TAG_NAME" == v*-preview*]]; then
-            echo "target_env=preview" >> $GITHUB_OUTPUT
+          if [[ "$TAG_NAME" == v*-preview* ]]; then
+            echo "eas_profile=preview" >> $GITHUB_OUTPUT
           else
-            echo "target_env=production" >> $GITHUB_OUTPUT
+            echo "eas_profile=production" >> $GITHUB_OUTPUT
           fi
 
-      - name: Log the profile
-        run: |
-          echo ${{ steps.tag_env.outputs.target_env }}
+  # 2. Second Job: Build and Submit (requires approval)
+  build_and_submit:
+    needs: prepare_and_validate # This job depends on the successful completion of 'prepare_and_validate'
+    runs-on: ubuntu-latest
+    # This is the job that requires approval
+    environment: app_submission
+
+    steps:
+      # We need to re-checkout code and set up Node/EAS in this new job,
+      # as each job runs in a fresh environment.
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+          cache: npm # Cache will make this faster
+
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }} # Ensure EAS CLI is authenticated for the build/submit
+
+      # Install dependencies again (can be cached for speed)
+      - name: 📦 Install dependencies
+        run: npm ci
 
       - name: 🚀 Build app and submit
-        run: eas build -p all --non-interactive --auto-submit --profile ${{ steps.tag_env.outputs.target_env }}
+        # Use the EAS profile determined in the previous job
+        run: eas build -p all --non-interactive --auto-submit --profile ${{ needs.prepare_and_validate.outputs.eas_profile }}
