@@ -27,9 +27,6 @@
             "channel": "preview"
         },
         "production": {
-            "ios": {
-                "image": "macos-sequoia-15.3-xcode-16.2"
-            },
             "env": {
                 "EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT": "https://flpzqrvf4jgf7fwkfydm3cbqvy.appsync-api.eu-west-1.amazonaws.com/graphql",
                 "EXPO_PUBLIC_TENANT_GRAPHQL_API_KEY": "da2-v2kdrx342raylkot2446a66ruu",
