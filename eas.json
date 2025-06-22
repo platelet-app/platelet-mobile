@@ -15,7 +15,6 @@
             "channel": "development"
         },
         "preview": {
-            "distribution": "internal",
             "android": {
                 "buildType": "app-bundle"
             },
