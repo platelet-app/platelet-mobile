@@ -31,5 +31,5 @@ jobs:
       # - name: Run tests
       #   run: npm run test:ci
 
-      - name: 🚀 Build app and submit
-        run: eas update -p all --non-interactive --profile ${{ github.ref_name }}
+      - name: 🚀 Submit update
+        run: eas update -p all --non-interactive --channel ${{ github.ref_name }}
