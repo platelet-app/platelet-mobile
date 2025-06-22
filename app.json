@@ -1,9 +1,9 @@
 {
     "expo": {
-        "newArchEnabled": "true",
+        "newArchEnabled": true,
         "name": "Platelet Dispatch",
         "slug": "platelet",
-        "version": "1.6.11",
+        "version": "1.6.12",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
@@ -14,7 +14,7 @@
         },
         "assetBundlePatterns": ["**/*"],
         "android": {
-            "versionCode": 10611,
+            "versionCode": 10612,
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
@@ -24,7 +24,10 @@
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "app.platelet.platelet",
-            "buildNumber": "1.6.11"
+            "buildNumber": "1.6.12",
+            "infoPlist": {
+                "ITSAppUsesNonExemptEncryption": false
+            }
         },
         "web": {
             "favicon": "./assets/favicon.png"
@@ -44,6 +47,10 @@
                     "url": "https://sentry.io"
                 }
             ]
-        ]
+        ],
+        "runtimeVersion": "1.0.0",
+        "updates": {
+            "url": "https://u.expo.dev/e0ebf080-50a7-4699-9200-4784bf67be53"
+        }
     }
 }
