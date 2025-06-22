@@ -44,6 +44,10 @@
                     "url": "https://sentry.io"
                 }
             ]
-        ]
+        ],
+        "runtimeVersion": "1.0.0",
+        "updates": {
+            "url": "https://u.expo.dev/e0ebf080-50a7-4699-9200-4784bf67be53"
+        }
     }
 }
