@@ -1,6 +1,6 @@
 {
     "expo": {
-        "newArchEnabled": "true",
+        "newArchEnabled": true,
         "name": "Platelet Dispatch",
         "slug": "platelet",
         "version": "1.6.12",
