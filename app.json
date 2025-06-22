@@ -24,7 +24,10 @@
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "app.platelet.platelet",
-            "buildNumber": "1.6.12"
+            "buildNumber": "1.6.12",
+            "infoPlist": {
+                "ITSAppUsesNonExemptEncryption": false
+            }
         },
         "web": {
             "favicon": "./assets/favicon.png"
