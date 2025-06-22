@@ -34,9 +34,16 @@ jobs:
           TAG_NAME=${{ github.ref_name }}
           if [[ "$TAG_NAME" == v*-preview* ]]; then
             echo "eas_profile=preview" >> $GITHUB_OUTPUT
-          else
+          elif [[ "$TAG_NAME" == v*-production* ]]; then
             echo "eas_profile=production" >> $GITHUB_OUTPUT
+          else
+            echo "Error: Tag '$TAG_NAME' does not match a recognized EAS profile (e.g., 'vX.Y.Z-preview' or 'vX.Y.Z-production')."
+            exit 1
           fi
+
+      - name: Log profile name
+        run: echo ${{ steps.tag_profile.outputs.eas_profile }}
+
 
   # 2. Second Job: Build and Submit (requires approval)
   build_and_submit:
@@ -66,6 +73,9 @@ jobs:
       # Install dependencies again (can be cached for speed)
       - name: 📦 Install dependencies
         run: npm ci
+
+      - name: Log profile name
+        run: echo ${{ needs.prepare_and_validate.outputs.eas_profile }}
 
       - name: 🚀 Build app and submit
         # Use the EAS profile determined in the previous job
