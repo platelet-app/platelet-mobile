@@ -11,7 +11,6 @@ import TaskInventoryDetail from "./components/TaskInventoryDetail";
 import TaskAssigneesDetail from "./components/TaskAssigneesDetail";
 import GenericError from "../Errors/GenericError";
 import CommentsSection from "../../components/CommentsSection/CommentsSection";
-import { Text } from "react-native-paper";
 
 type TaskProps = {
     route: any;
@@ -61,7 +60,6 @@ const Task: React.FC<TaskProps> = ({ route, navigation }) => {
     } else {
         return (
             <ScrollView contentContainerStyle={{ padding: 8, gap: 8 }}>
-                <Text>testing test</Text>
                 <TaskDetails taskId={taskId} />
                 <TaskActions taskId={taskId} />
                 <TaskLocationDetail
