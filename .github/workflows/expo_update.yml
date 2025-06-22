@@ -32,4 +32,4 @@ jobs:
       #   run: npm run test:ci
 
       - name: 🚀 Submit update
-        run: eas update -p all --non-interactive --channel ${{ github.ref_name }}
+        run: eas update -p all --auto --channel ${{ github.ref_name }}
