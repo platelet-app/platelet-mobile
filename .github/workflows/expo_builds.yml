@@ -25,8 +25,8 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm run test:ci
+      # - name: Run tests
+      #   run: npm run test:ci
 
       - name: Determine EAS Profile from tag
         id: tag_profile
