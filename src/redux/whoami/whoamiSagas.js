@@ -15,7 +15,7 @@ import * as models from "../../models";
 import * as queries from "../../graphql/queries";
 import { NotFound } from "http-errors";
 import { eventChannel } from "redux-saga";
-import { ExpoSQLiteAdapter } from "@aws-amplify/datastore-storage-adapter/ExpoSQLiteAdapter";
+import { SQLiteAdapter } from "@aws-amplify/datastore-storage-adapter/SQLiteAdapter";
 import dataStoreConflictHandler from "./dataStoreConflictHandler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -103,7 +103,7 @@ function* getWhoami() {
             ];
 
             yield call([DataStore, DataStore.configure], {
-                storageAdapter: ExpoSQLiteAdapter,
+                storageAdapter: SQLiteAdapter,
                 errorHandler: (err) => {
                     console.log("DataStore error:", err);
                     console.log("Cause:", err.cause);
