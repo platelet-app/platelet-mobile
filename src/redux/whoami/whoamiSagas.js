@@ -18,6 +18,7 @@ import { eventChannel } from "redux-saga";
 import { SQLiteAdapter } from "@aws-amplify/datastore-storage-adapter/SQLiteAdapter";
 import dataStoreConflictHandler from "./dataStoreConflictHandler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as clearOldData from "./deleteOldAmplifyKeysFromAsyncStorage";
 
 function listener(userId) {
     return eventChannel((emitter) => {
@@ -101,6 +102,12 @@ function* getWhoami() {
                 models.TaskAssignee,
                 models.Deliverable,
             ];
+
+            // clear up old data from DataStore because of previously broken adapter
+            yield call([
+                clearOldData,
+                clearOldData.deleteOldAmplifyKeysFromAsyncStorage,
+            ]);
 
             yield call([DataStore, DataStore.configure], {
                 storageAdapter: SQLiteAdapter,
