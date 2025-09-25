@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as models from "../../models";
 import { View } from "react-native";
+import { Text } from "react-native-paper";
 import TasksGridTasksList from "./components/TasksGridTasksList";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColorScheme } from "react-native";
@@ -37,6 +38,7 @@ const Dashboard: React.FC<DashboardProps> = ({ status, tabIndex }) => {
                 paddingRight: insets.right + 8,
             }}
         >
+            <Text>Testing preview</Text>
             <TasksGridTasksList
                 limit={status === "completed"}
                 status={statuses}
