@@ -46,6 +46,16 @@
                     "project": "react-native",
                     "url": "https://sentry.io"
                 }
+            ],
+            [
+                "expo-build-properties",
+                {
+                    "android": {
+                        "compileSdkVersion": 35,
+                        "targetSdkVersion": 35,
+                        "buildToolsVersion": "35.0.0"
+                    }
+                }
             ]
         ],
         "runtimeVersion": "1.0.0",
