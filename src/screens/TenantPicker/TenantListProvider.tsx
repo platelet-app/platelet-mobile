@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DataStore } from "aws-amplify";
 import * as SplashScreen from "expo-splash-screen";
 import { DAYS_AGO } from "../../hooks/utilities/getTasksConsts";
+import { deleteOldAmplifyKeysFromAsyncStorage } from "../../utilities/deleteOldAmplifyKeysFromAsyncStorage";
 
 export const DAYS_TO_WAIT_BEFORE_CLEARING_DATA = DAYS_AGO;
 
@@ -42,6 +43,9 @@ export const TenantListProvider: React.FC<TenantListProviderProps> = ({
                 `more than ${DAYS_TO_WAIT_BEFORE_CLEARING_DATA} days since last sync, clearing stale data from DataStore`
             );
             await DataStore.clear();
+            // in case we have lingering data in RKStorage
+            // this data might exist because of the change to the sqlite adapter
+            await deleteOldAmplifyKeysFromAsyncStorage();
         }
         try {
             const tenantId = await AsyncStorage.getItem("tenantId");
