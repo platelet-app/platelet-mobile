@@ -16,6 +16,9 @@ jest.mock("@sentry/react-native", () => ({
     init: jest.fn(),
     captureMessage: jest.fn(),
 }));
+jest.mock("@aws-amplify/datastore-storage-adapter/SQLiteAdapter", () => ({
+    SQLiteAdapter: undefined,
+}));
 
 const RESET_MODULE_EXCEPTIONS = ["react", "react-redux"];
 
