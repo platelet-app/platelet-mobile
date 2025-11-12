@@ -28,8 +28,8 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
-      # - name: Run tests
-      #   run: npm run test:ci
+      - name: Run tests
+        run: npm run test:ci
 
       - name: 🚀 Submit update
         run: eas update -p all --auto --channel ${{ github.ref_name }}
