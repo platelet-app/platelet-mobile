@@ -40,22 +40,34 @@ export const TenantListProvider: React.FC<TenantListProviderProps> = ({
         const lastSynced = await AsyncStorage.getItem("dateLastSynced");
         const daysAgo = new Date();
         daysAgo.setDate(daysAgo.getDate() - DAYS_TO_WAIT_BEFORE_CLEARING_DATA);
-        try {
-            if (lastSynced && new Date(lastSynced) < daysAgo) {
-                console.log(
-                    `more than ${DAYS_TO_WAIT_BEFORE_CLEARING_DATA} days since last sync, clearing stale data from DataStore`
-                );
+        if (lastSynced && new Date(lastSynced) < daysAgo) {
+            console.log(
+                `more than ${DAYS_TO_WAIT_BEFORE_CLEARING_DATA} days since last sync, clearing stale data from DataStore`
+            );
 
+            try {
                 // delete the sqlite database directly
                 // DataStore has not yet been configured, so DataStore.clear will not work
                 await SQLite.deleteDatabase({
                     name: DB_NAME,
                     location: "default",
                 });
+            } catch (error) {
+                console.warn(error);
+                console.warn(
+                    "Could not delete existing database because it probably doesn't exist, continuing"
+                );
+            }
+            try {
                 // in case we have lingering data in RKStorage
                 // this data might exist because of the change to the sqlite adapter
                 await deleteOldAmplifyKeysFromAsyncStorage();
+            } catch (error) {
+                console.warn(error);
+                console.warn("Could not delete legacy keys, continuing");
             }
+        }
+        try {
             const tenantId = await AsyncStorage.getItem("tenantId");
             if (tenantId) {
                 log(`tenantId: ${tenantId}`);
