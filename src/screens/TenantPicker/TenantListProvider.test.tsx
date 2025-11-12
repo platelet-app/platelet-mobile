@@ -1,5 +1,6 @@
 import TenantListProvider from "./TenantListProvider";
 import { Amplify, DataStore } from "aws-amplify";
+import SQLite from "react-native-sqlite-storage";
 import { fireEvent, render, screen, waitFor } from "../../test-utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text } from "react-native";
@@ -178,6 +179,7 @@ describe("TenantListProvider", () => {
     });
 
     test("configuring with an existing config", async () => {
+        jest.spyOn(SQLite, "deleteDatabase").mockResolvedValue();
         process.env["EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT"] = new URL(
             "http://localhost:4000/graphql"
         );
@@ -238,6 +240,7 @@ describe("TenantListProvider", () => {
     });
 
     test("configuring with an existing config, but graphql fails", async () => {
+        jest.spyOn(SQLite, "deleteDatabase").mockResolvedValue();
         process.env["EXPO_PUBLIC_TENANT_GRAPHQL_ENDPOINT"] = new URL(
             "http://localhost:4000/graphql"
         );
@@ -402,7 +405,9 @@ describe("TenantListProvider", () => {
                     }),
             })
         );
-        const clearSpy = jest.spyOn(DataStore, "clear");
+        const clearSpy = jest
+            .spyOn(SQLite, "deleteDatabase")
+            .mockResolvedValue();
         const amplifySpy = jest.spyOn(Amplify, "configure");
         jest.spyOn(AsyncStorage, "getItem")
             .mockReturnValueOnce("2000-01-01")
@@ -416,7 +421,10 @@ describe("TenantListProvider", () => {
         );
         expect(screen.queryByText("test")).toBeNull();
         await waitFor(() => {
-            expect(clearSpy).toHaveBeenCalled();
+            expect(clearSpy).toHaveBeenCalledWith({
+                name: "AmplifyDatastore",
+                location: "default",
+            });
         });
         const parsedConfig = JSON.parse(fakeConfigData);
         await waitFor(() => {
