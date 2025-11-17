@@ -2,15 +2,17 @@ import * as React from "react";
 import clearAmplifyConfig from "../../utilities/clearAmplifyConfig";
 import configureAmplify from "./utilities/configureAmplify";
 import saveAmplifyConfig from "../../utilities/saveAmplifyConfig";
+import SQLite from "react-native-sqlite-storage";
 import TenantList from "./components/TenantList";
 import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { DataStore } from "aws-amplify";
 import * as SplashScreen from "expo-splash-screen";
 import { DAYS_AGO } from "../../hooks/utilities/getTasksConsts";
 import { deleteOldAmplifyKeysFromAsyncStorage } from "../../utilities/deleteOldAmplifyKeysFromAsyncStorage";
 
 export const DAYS_TO_WAIT_BEFORE_CLEARING_DATA = DAYS_AGO;
+
+const DB_NAME = "AmplifyDatastore";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,10 +44,28 @@ export const TenantListProvider: React.FC<TenantListProviderProps> = ({
             console.log(
                 `more than ${DAYS_TO_WAIT_BEFORE_CLEARING_DATA} days since last sync, clearing stale data from DataStore`
             );
-            await DataStore.clear();
-            // in case we have lingering data in RKStorage
-            // this data might exist because of the change to the sqlite adapter
-            await deleteOldAmplifyKeysFromAsyncStorage();
+
+            try {
+                // delete the sqlite database directly
+                // DataStore has not yet been configured, so DataStore.clear will not work
+                await SQLite.deleteDatabase({
+                    name: DB_NAME,
+                    location: "default",
+                });
+            } catch (error) {
+                console.warn(error);
+                console.warn(
+                    "Could not delete existing database because it probably doesn't exist, continuing"
+                );
+            }
+            try {
+                // in case we have lingering data in RKStorage
+                // this data might exist because of the change to the sqlite adapter
+                await deleteOldAmplifyKeysFromAsyncStorage();
+            } catch (error) {
+                console.warn(error);
+                console.warn("Could not delete legacy keys, continuing");
+            }
         }
         try {
             const tenantId = await AsyncStorage.getItem("tenantId");
