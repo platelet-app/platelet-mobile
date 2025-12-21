@@ -142,7 +142,7 @@ const TaskActionsConfirmationDialog: React.FC<TaskActionsConfirmationDialogProps
                                 </TouchableOpacity>
                                 {nameKey && (
                                     <TextInput
-					autoComplete="off"
+                                        autoComplete="off"
                                         mode="outlined"
                                         defaultValue={startingNameValue || ""}
                                         onChangeText={setNameValue}
@@ -152,7 +152,7 @@ const TaskActionsConfirmationDialog: React.FC<TaskActionsConfirmationDialogProps
                                 )}
                                 {needsReason && (
                                     <TextInput
-					autoComplete="off"
+                                        autoComplete="off"
                                         mode="outlined"
                                         onChangeText={onChangeReasonBody}
                                         aria-label="Reason"
