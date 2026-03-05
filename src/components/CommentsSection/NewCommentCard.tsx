@@ -78,6 +78,7 @@ const NewCommentCard: React.FC<NewCommentCardProps> = ({ parentId }) => {
                         />
                     </View>
                     <TextInput
+                        autoComplete="off"
                         key={
                             resetTextInput
                                 ? "comment-text-input-first"
