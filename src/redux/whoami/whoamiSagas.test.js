@@ -4,6 +4,7 @@ import { runSaga } from "redux-saga";
 import * as awsAmplify from "aws-amplify";
 import * as models from "../../models";
 import * as whoamiActions from "./whoamiActions";
+import { LOGOUT } from "../login/loginActions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const fakeUser = {
@@ -156,5 +157,82 @@ describe("whoamiSagas", () => {
         ).toPromise();
 
         expect(dispatched).toMatchSnapshot();
+    });
+    it("logs out a disabled user found in DataStore", async () => {
+        const dispatched = [];
+        await DataStore.save(
+            new models.User({
+                displayName: "test",
+                tenantId: "someTenant",
+                cognitoId: "someCognitoId",
+                username: "someUsername",
+                roles: [models.Role.COORDINATOR],
+                disabled: 1,
+            })
+        );
+        jest.spyOn(Auth, "currentAuthenticatedUser").mockResolvedValue(
+            fakeCognitoResponse
+        );
+        jest.spyOn(AsyncStorage, "getItem").mockReturnValue("someTenantId");
+        jest.spyOn(awsAmplify, "syncExpression");
+
+        await runSaga(
+            {
+                dispatch: (action) => dispatched.push(action),
+                getState: () => ({ state: "test" }),
+            },
+            testFunctions.getWhoami
+        ).toPromise();
+
+        expect(dispatched.some((a) => a.type === LOGOUT)).toBe(true);
+        expect(dispatched.some((a) => a.type === whoamiActions.GET_WHOAMI_SUCCESS)).toBe(false);
+        expect(dispatched.some((a) => a.type === whoamiActions.INIT_WHOAMI_OBSERVER)).toBe(false);
+        expect(dispatched.some((a) => a.type === whoamiActions.SET_TENANT_ID)).toBe(false);
+    });
+    it("logs out a disabled user via the observer", async () => {
+        const dispatched = [];
+        jest.spyOn(DataStore, "observe").mockReturnValue({
+            subscribe: (callback) => {
+                setTimeout(() => callback({ element: { disabled: 1 } }), 0);
+                return { unsubscribe: jest.fn() };
+            },
+        });
+
+        await runSaga(
+            {
+                dispatch: (action) => dispatched.push(action),
+                getState: () => ({ state: "test" }),
+            },
+            testFunctions.whoamiObserver,
+            { whoamiId: "someUserId" }
+        ).toPromise();
+
+        expect(dispatched.some((a) => a.type === LOGOUT)).toBe(true);
+        expect(dispatched.some((a) => a.type === whoamiActions.GET_WHOAMI_SUCCESS)).toBe(false);
+    });
+    it("logs out a disabled user found via the API", async () => {
+        const dispatched = [];
+        const disabledUser = { ...fakeUser, disabled: true };
+        jest.spyOn(Auth, "currentAuthenticatedUser").mockResolvedValue(
+            fakeCognitoResponse
+        );
+        jest.spyOn(API, "graphql").mockResolvedValue({
+            data: { getUserByCognitoId: { items: [disabledUser] } },
+        });
+        jest.spyOn(AsyncStorage, "getItem").mockReturnValue(null);
+        jest.spyOn(awsAmplify, "syncExpression");
+
+        await runSaga(
+            {
+                dispatch: (action) => dispatched.push(action),
+                getState: () => ({ state: "test" }),
+            },
+            testFunctions.getWhoami
+        ).toPromise();
+
+        expect(dispatched.some((a) => a.type === LOGOUT)).toBe(true);
+        expect(dispatched.some((a) => a.type === whoamiActions.GET_WHOAMI_SUCCESS)).toBe(false);
+        expect(dispatched.some((a) => a.type === whoamiActions.INIT_WHOAMI_OBSERVER)).toBe(false);
+        expect(dispatched.some((a) => a.type === whoamiActions.SET_TENANT_ID)).toBe(false);
     });
 });

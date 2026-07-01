@@ -41,6 +41,7 @@ function* whoamiObserver(action) {
             // log them out
             if (result.disabled) {
                 yield put(logoutUser());
+                break;
             } else {
                 yield put(getWhoamiSuccess(result));
             }
@@ -159,16 +160,13 @@ function* getWhoami() {
                     result.data.getUserByCognitoId.items &&
                     result.data.getUserByCognitoId.items.length > 0
                 ) {
-                    yield put(
-                        getWhoamiSuccess(
-                            result.data.getUserByCognitoId.items[0]
-                        )
-                    );
-                    yield put(
-                        initWhoamiObserver(
-                            result.data.getUserByCognitoId.items[0].id
-                        )
-                    );
+                    const apiUser = result.data.getUserByCognitoId.items[0];
+                    if (apiUser.disabled) {
+                        yield put(logoutUser());
+                        return;
+                    }
+                    yield put(getWhoamiSuccess(apiUser));
+                    yield put(initWhoamiObserver(apiUser.id));
                 } else {
                     throw new NotFound("Could not find logged in user");
                 }
@@ -177,6 +175,7 @@ function* getWhoami() {
                 // if the user is disabled log them out
                 if (user.disabled) {
                     yield put(logoutUser());
+                    return;
                 } else {
                     yield put(getWhoamiSuccess(user));
                     yield put(initWhoamiObserver(user.id));
@@ -204,4 +203,5 @@ export function* watchRefreshWhoami() {
 
 export const testFunctions = {
     getWhoami,
+    whoamiObserver,
 };
