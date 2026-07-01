@@ -78,8 +78,12 @@ function* getWhoami() {
                     query: queries.getUserByCognitoId,
                     variables: { cognitoId: subId },
                 });
-                tenantId =
-                    userInfo?.data?.getUserByCognitoId?.items[0]?.tenantId;
+                const user = userInfo?.data?.getUserByCognitoId?.items[0];
+                tenantId = user?.tenantId;
+                if (user?.disabled) {
+                    yield put(logoutUser());
+                    return;
+                }
                 if (tenantId) {
                     yield call(
                         [AsyncStorage, AsyncStorage.setItem],
