@@ -37,10 +37,12 @@ describe("Login", () => {
                 <Text>test</Text>
             </Login>
         );
+        // signOut listener (effect 2) is registered synchronously before the
+        // signIn listener (initFunction, async) — wait for both
         await waitFor(() => {
-            expect(hubSpy).toHaveBeenCalledWith("auth", expect.any(Function));
+            expect(hubSpy).toHaveBeenCalledTimes(2);
         });
-        const hubListener = hubSpy.mock.calls[0][1];
+        const hubListener = hubSpy.mock.calls[1][1];
         hubListener({ payload: { event: "signIn" } });
         expect(dispatch).toHaveBeenCalledWith(initialiseApp());
         expect(screen.queryByText("test")).toBeNull();
@@ -69,6 +71,36 @@ describe("Login", () => {
         component.unmount();
         expect(hubRemoveSpy).toHaveBeenCalledWith("auth", expect.any(Function));
     });
+    it("re-dispatches init app after signOut and re-login", async () => {
+        const dispatch = jest.fn();
+        jest.spyOn(redux, "useDispatch").mockReturnValue(dispatch);
+        jest.spyOn(Auth, "currentAuthenticatedUser")
+            .mockResolvedValueOnce({ username: "someUser" })
+            .mockRejectedValue(new Error());
+        const hubSpy = jest.spyOn(Hub, "listen").mockImplementation(() => () => {});
+        render(
+            <Login>
+                <Text>test</Text>
+            </Login>
+        );
+        await waitFor(() => {
+            expect(dispatch).toHaveBeenCalledWith(initialiseApp());
+        });
+        dispatch.mockClear();
+        // effect 2 registers the signOut listener synchronously (call #0)
+        await waitFor(() => {
+            expect(hubSpy).toHaveBeenCalledWith("auth", expect.any(Function));
+        });
+        const signOutListener = hubSpy.mock.calls[0][1];
+        signOutListener({ payload: { event: "signOut" } });
+        // initFunction runs again, Auth rejects, signIn listener registered (call #1)
+        await waitFor(() => {
+            expect(hubSpy).toHaveBeenCalledTimes(2);
+        });
+        const signInListener = hubSpy.mock.calls[1][1];
+        signInListener({ payload: { event: "signIn" } });
+        expect(dispatch).toHaveBeenCalledWith(initialiseApp());
+    });
     it("dispatches init app if the user is logged in", async () => {
         const dispatch = jest.fn();
         jest.spyOn(redux, "useDispatch").mockReturnValue(dispatch);
@@ -86,9 +118,10 @@ describe("Login", () => {
         await waitFor(() => {
             expect(dispatch).toHaveBeenCalledWith(initialiseApp());
         });
+        // only the signOut listener is registered — no signIn listener needed
+        expect(hubSpy).toHaveBeenCalledTimes(1);
         expect(screen.queryByText("test")).toBeNull();
         store.dispatch(getWhoamiSuccess({ id: "someId" }));
         await screen.findByText("test");
-        expect(hubSpy).not.toHaveBeenCalledWith("auth", expect.any(Function));
     });
 });
