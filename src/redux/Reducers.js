@@ -16,6 +16,7 @@ import {
     selectionModeAvailableItemsReducer,
     selectionActionsPendingReducer,
 } from "./selectionMode/selectionModeReducers";
+import { LOGOUT } from "./login/loginActions";
 
 function tenantId(state = null, action) {
     switch (action.type) {
@@ -68,6 +69,9 @@ const appReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
+    if (action.type === LOGOUT) {
+        return appReducer(undefined, action);
+    }
     return appReducer(state, action);
 };
 

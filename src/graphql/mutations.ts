@@ -4,8 +4,8 @@
 
 import * as APITypes from "../API";
 type GeneratedMutation<InputType, OutputType> = string & {
-  __generatedMutationInput: InputType;
-  __generatedMutationOutput: OutputType;
+    __generatedMutationInput: InputType;
+    __generatedMutationOutput: OutputType;
 };
 
 export const createTenant = /* GraphQL */ `mutation CreateTenant(
@@ -28,6 +28,7 @@ export const createTenant = /* GraphQL */ `mutation CreateTenant(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -45,8 +46,8 @@ export const createTenant = /* GraphQL */ `mutation CreateTenant(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateTenantMutationVariables,
-  APITypes.CreateTenantMutation
+    APITypes.CreateTenantMutationVariables,
+    APITypes.CreateTenantMutation
 >;
 export const updateTenant = /* GraphQL */ `mutation UpdateTenant(
   $input: UpdateTenantInput!
@@ -68,6 +69,7 @@ export const updateTenant = /* GraphQL */ `mutation UpdateTenant(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -85,8 +87,8 @@ export const updateTenant = /* GraphQL */ `mutation UpdateTenant(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateTenantMutationVariables,
-  APITypes.UpdateTenantMutation
+    APITypes.UpdateTenantMutationVariables,
+    APITypes.UpdateTenantMutation
 >;
 export const deleteTenant = /* GraphQL */ `mutation DeleteTenant(
   $input: DeleteTenantInput!
@@ -108,6 +110,7 @@ export const deleteTenant = /* GraphQL */ `mutation DeleteTenant(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -125,8 +128,8 @@ export const deleteTenant = /* GraphQL */ `mutation DeleteTenant(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteTenantMutationVariables,
-  APITypes.DeleteTenantMutation
+    APITypes.DeleteTenantMutationVariables,
+    APITypes.DeleteTenantMutation
 >;
 export const createUser = /* GraphQL */ `mutation CreateUser(
   $input: CreateUserInput!
@@ -207,6 +210,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       __typename
     }
     disabled
+    isBeingDeleted
     createdAt
     updatedAt
     _version
@@ -216,8 +220,8 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateUserMutationVariables,
-  APITypes.CreateUserMutation
+    APITypes.CreateUserMutationVariables,
+    APITypes.CreateUserMutation
 >;
 export const updateUser = /* GraphQL */ `mutation UpdateUser(
   $input: UpdateUserInput!
@@ -298,6 +302,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       __typename
     }
     disabled
+    isBeingDeleted
     createdAt
     updatedAt
     _version
@@ -307,8 +312,8 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateUserMutationVariables,
-  APITypes.UpdateUserMutation
+    APITypes.UpdateUserMutationVariables,
+    APITypes.UpdateUserMutation
 >;
 export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   $input: DeleteUserInput!
@@ -389,6 +394,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       __typename
     }
     disabled
+    isBeingDeleted
     createdAt
     updatedAt
     _version
@@ -398,8 +404,8 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteUserMutationVariables,
-  APITypes.DeleteUserMutation
+    APITypes.DeleteUserMutationVariables,
+    APITypes.DeleteUserMutation
 >;
 export const createPossibleRiderResponsibilities = /* GraphQL */ `mutation CreatePossibleRiderResponsibilities(
   $input: CreatePossibleRiderResponsibilitiesInput!
@@ -420,6 +426,7 @@ export const createPossibleRiderResponsibilities = /* GraphQL */ `mutation Creat
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -450,8 +457,8 @@ export const createPossibleRiderResponsibilities = /* GraphQL */ `mutation Creat
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreatePossibleRiderResponsibilitiesMutationVariables,
-  APITypes.CreatePossibleRiderResponsibilitiesMutation
+    APITypes.CreatePossibleRiderResponsibilitiesMutationVariables,
+    APITypes.CreatePossibleRiderResponsibilitiesMutation
 >;
 export const updatePossibleRiderResponsibilities = /* GraphQL */ `mutation UpdatePossibleRiderResponsibilities(
   $input: UpdatePossibleRiderResponsibilitiesInput!
@@ -472,6 +479,7 @@ export const updatePossibleRiderResponsibilities = /* GraphQL */ `mutation Updat
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -502,8 +510,8 @@ export const updatePossibleRiderResponsibilities = /* GraphQL */ `mutation Updat
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdatePossibleRiderResponsibilitiesMutationVariables,
-  APITypes.UpdatePossibleRiderResponsibilitiesMutation
+    APITypes.UpdatePossibleRiderResponsibilitiesMutationVariables,
+    APITypes.UpdatePossibleRiderResponsibilitiesMutation
 >;
 export const deletePossibleRiderResponsibilities = /* GraphQL */ `mutation DeletePossibleRiderResponsibilities(
   $input: DeletePossibleRiderResponsibilitiesInput!
@@ -524,6 +532,7 @@ export const deletePossibleRiderResponsibilities = /* GraphQL */ `mutation Delet
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -554,8 +563,8 @@ export const deletePossibleRiderResponsibilities = /* GraphQL */ `mutation Delet
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeletePossibleRiderResponsibilitiesMutationVariables,
-  APITypes.DeletePossibleRiderResponsibilitiesMutation
+    APITypes.DeletePossibleRiderResponsibilitiesMutationVariables,
+    APITypes.DeletePossibleRiderResponsibilitiesMutation
 >;
 export const createVehicle = /* GraphQL */ `mutation CreateVehicle(
   $input: CreateVehicleInput!
@@ -576,6 +585,7 @@ export const createVehicle = /* GraphQL */ `mutation CreateVehicle(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -609,8 +619,8 @@ export const createVehicle = /* GraphQL */ `mutation CreateVehicle(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateVehicleMutationVariables,
-  APITypes.CreateVehicleMutation
+    APITypes.CreateVehicleMutationVariables,
+    APITypes.CreateVehicleMutation
 >;
 export const updateVehicle = /* GraphQL */ `mutation UpdateVehicle(
   $input: UpdateVehicleInput!
@@ -631,6 +641,7 @@ export const updateVehicle = /* GraphQL */ `mutation UpdateVehicle(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -664,8 +675,8 @@ export const updateVehicle = /* GraphQL */ `mutation UpdateVehicle(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateVehicleMutationVariables,
-  APITypes.UpdateVehicleMutation
+    APITypes.UpdateVehicleMutationVariables,
+    APITypes.UpdateVehicleMutation
 >;
 export const deleteVehicle = /* GraphQL */ `mutation DeleteVehicle(
   $input: DeleteVehicleInput!
@@ -686,6 +697,7 @@ export const deleteVehicle = /* GraphQL */ `mutation DeleteVehicle(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -719,8 +731,8 @@ export const deleteVehicle = /* GraphQL */ `mutation DeleteVehicle(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteVehicleMutationVariables,
-  APITypes.DeleteVehicleMutation
+    APITypes.DeleteVehicleMutationVariables,
+    APITypes.DeleteVehicleMutation
 >;
 export const createVehicleAssignment = /* GraphQL */ `mutation CreateVehicleAssignment(
   $input: CreateVehicleAssignmentInput!
@@ -758,6 +770,7 @@ export const createVehicleAssignment = /* GraphQL */ `mutation CreateVehicleAssi
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -776,8 +789,8 @@ export const createVehicleAssignment = /* GraphQL */ `mutation CreateVehicleAssi
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateVehicleAssignmentMutationVariables,
-  APITypes.CreateVehicleAssignmentMutation
+    APITypes.CreateVehicleAssignmentMutationVariables,
+    APITypes.CreateVehicleAssignmentMutation
 >;
 export const updateVehicleAssignment = /* GraphQL */ `mutation UpdateVehicleAssignment(
   $input: UpdateVehicleAssignmentInput!
@@ -815,6 +828,7 @@ export const updateVehicleAssignment = /* GraphQL */ `mutation UpdateVehicleAssi
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -833,8 +847,8 @@ export const updateVehicleAssignment = /* GraphQL */ `mutation UpdateVehicleAssi
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateVehicleAssignmentMutationVariables,
-  APITypes.UpdateVehicleAssignmentMutation
+    APITypes.UpdateVehicleAssignmentMutationVariables,
+    APITypes.UpdateVehicleAssignmentMutation
 >;
 export const deleteVehicleAssignment = /* GraphQL */ `mutation DeleteVehicleAssignment(
   $input: DeleteVehicleAssignmentInput!
@@ -872,6 +886,7 @@ export const deleteVehicleAssignment = /* GraphQL */ `mutation DeleteVehicleAssi
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -890,8 +905,8 @@ export const deleteVehicleAssignment = /* GraphQL */ `mutation DeleteVehicleAssi
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteVehicleAssignmentMutationVariables,
-  APITypes.DeleteVehicleAssignmentMutation
+    APITypes.DeleteVehicleAssignmentMutationVariables,
+    APITypes.DeleteVehicleAssignmentMutation
 >;
 export const createLocation = /* GraphQL */ `mutation CreateLocation(
   $input: CreateLocationInput!
@@ -912,6 +927,7 @@ export const createLocation = /* GraphQL */ `mutation CreateLocation(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -996,8 +1012,8 @@ export const createLocation = /* GraphQL */ `mutation CreateLocation(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateLocationMutationVariables,
-  APITypes.CreateLocationMutation
+    APITypes.CreateLocationMutationVariables,
+    APITypes.CreateLocationMutation
 >;
 export const updateLocation = /* GraphQL */ `mutation UpdateLocation(
   $input: UpdateLocationInput!
@@ -1018,6 +1034,7 @@ export const updateLocation = /* GraphQL */ `mutation UpdateLocation(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1102,8 +1119,8 @@ export const updateLocation = /* GraphQL */ `mutation UpdateLocation(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateLocationMutationVariables,
-  APITypes.UpdateLocationMutation
+    APITypes.UpdateLocationMutationVariables,
+    APITypes.UpdateLocationMutation
 >;
 export const deleteLocation = /* GraphQL */ `mutation DeleteLocation(
   $input: DeleteLocationInput!
@@ -1124,6 +1141,7 @@ export const deleteLocation = /* GraphQL */ `mutation DeleteLocation(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1208,8 +1226,8 @@ export const deleteLocation = /* GraphQL */ `mutation DeleteLocation(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteLocationMutationVariables,
-  APITypes.DeleteLocationMutation
+    APITypes.DeleteLocationMutationVariables,
+    APITypes.DeleteLocationMutation
 >;
 export const createTask = /* GraphQL */ `mutation CreateTask(
   $input: CreateTaskInput!
@@ -1231,6 +1249,7 @@ export const createTask = /* GraphQL */ `mutation CreateTask(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1366,6 +1385,18 @@ export const createTask = /* GraphQL */ `mutation CreateTask(
     status
     isRiderUsingOwnVehicle
     archived
+    pickUpSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
+    dropOffSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
     updatedAt
     _version
     _deleted
@@ -1375,8 +1406,8 @@ export const createTask = /* GraphQL */ `mutation CreateTask(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateTaskMutationVariables,
-  APITypes.CreateTaskMutation
+    APITypes.CreateTaskMutationVariables,
+    APITypes.CreateTaskMutation
 >;
 export const updateTask = /* GraphQL */ `mutation UpdateTask(
   $input: UpdateTaskInput!
@@ -1398,6 +1429,7 @@ export const updateTask = /* GraphQL */ `mutation UpdateTask(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1533,6 +1565,18 @@ export const updateTask = /* GraphQL */ `mutation UpdateTask(
     status
     isRiderUsingOwnVehicle
     archived
+    pickUpSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
+    dropOffSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
     updatedAt
     _version
     _deleted
@@ -1542,8 +1586,8 @@ export const updateTask = /* GraphQL */ `mutation UpdateTask(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateTaskMutationVariables,
-  APITypes.UpdateTaskMutation
+    APITypes.UpdateTaskMutationVariables,
+    APITypes.UpdateTaskMutation
 >;
 export const deleteTask = /* GraphQL */ `mutation DeleteTask(
   $input: DeleteTaskInput!
@@ -1565,6 +1609,7 @@ export const deleteTask = /* GraphQL */ `mutation DeleteTask(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1700,6 +1745,18 @@ export const deleteTask = /* GraphQL */ `mutation DeleteTask(
     status
     isRiderUsingOwnVehicle
     archived
+    pickUpSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
+    dropOffSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
     updatedAt
     _version
     _deleted
@@ -1709,8 +1766,8 @@ export const deleteTask = /* GraphQL */ `mutation DeleteTask(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteTaskMutationVariables,
-  APITypes.DeleteTaskMutation
+    APITypes.DeleteTaskMutationVariables,
+    APITypes.DeleteTaskMutation
 >;
 export const createTaskAssignee = /* GraphQL */ `mutation CreateTaskAssignee(
   $input: CreateTaskAssigneeInput!
@@ -1761,6 +1818,7 @@ export const createTaskAssignee = /* GraphQL */ `mutation CreateTaskAssignee(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1780,8 +1838,8 @@ export const createTaskAssignee = /* GraphQL */ `mutation CreateTaskAssignee(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateTaskAssigneeMutationVariables,
-  APITypes.CreateTaskAssigneeMutation
+    APITypes.CreateTaskAssigneeMutationVariables,
+    APITypes.CreateTaskAssigneeMutation
 >;
 export const updateTaskAssignee = /* GraphQL */ `mutation UpdateTaskAssignee(
   $input: UpdateTaskAssigneeInput!
@@ -1832,6 +1890,7 @@ export const updateTaskAssignee = /* GraphQL */ `mutation UpdateTaskAssignee(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1851,8 +1910,8 @@ export const updateTaskAssignee = /* GraphQL */ `mutation UpdateTaskAssignee(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateTaskAssigneeMutationVariables,
-  APITypes.UpdateTaskAssigneeMutation
+    APITypes.UpdateTaskAssigneeMutationVariables,
+    APITypes.UpdateTaskAssigneeMutation
 >;
 export const deleteTaskAssignee = /* GraphQL */ `mutation DeleteTaskAssignee(
   $input: DeleteTaskAssigneeInput!
@@ -1903,6 +1962,7 @@ export const deleteTaskAssignee = /* GraphQL */ `mutation DeleteTaskAssignee(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1922,8 +1982,8 @@ export const deleteTaskAssignee = /* GraphQL */ `mutation DeleteTaskAssignee(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteTaskAssigneeMutationVariables,
-  APITypes.DeleteTaskAssigneeMutation
+    APITypes.DeleteTaskAssigneeMutationVariables,
+    APITypes.DeleteTaskAssigneeMutation
 >;
 export const createScheduledTask = /* GraphQL */ `mutation CreateScheduledTask(
   $input: CreateScheduledTaskInput!
@@ -1944,6 +2004,7 @@ export const createScheduledTask = /* GraphQL */ `mutation CreateScheduledTask(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -2057,6 +2118,18 @@ export const createScheduledTask = /* GraphQL */ `mutation CreateScheduledTask(
       __typename
     }
     disabled
+    pickUpSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
+    dropOffSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
     createdAt
     updatedAt
     _version
@@ -2067,8 +2140,8 @@ export const createScheduledTask = /* GraphQL */ `mutation CreateScheduledTask(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateScheduledTaskMutationVariables,
-  APITypes.CreateScheduledTaskMutation
+    APITypes.CreateScheduledTaskMutationVariables,
+    APITypes.CreateScheduledTaskMutation
 >;
 export const updateScheduledTask = /* GraphQL */ `mutation UpdateScheduledTask(
   $input: UpdateScheduledTaskInput!
@@ -2089,6 +2162,7 @@ export const updateScheduledTask = /* GraphQL */ `mutation UpdateScheduledTask(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -2202,6 +2276,18 @@ export const updateScheduledTask = /* GraphQL */ `mutation UpdateScheduledTask(
       __typename
     }
     disabled
+    pickUpSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
+    dropOffSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
     createdAt
     updatedAt
     _version
@@ -2212,8 +2298,8 @@ export const updateScheduledTask = /* GraphQL */ `mutation UpdateScheduledTask(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateScheduledTaskMutationVariables,
-  APITypes.UpdateScheduledTaskMutation
+    APITypes.UpdateScheduledTaskMutationVariables,
+    APITypes.UpdateScheduledTaskMutation
 >;
 export const deleteScheduledTask = /* GraphQL */ `mutation DeleteScheduledTask(
   $input: DeleteScheduledTaskInput!
@@ -2234,6 +2320,7 @@ export const deleteScheduledTask = /* GraphQL */ `mutation DeleteScheduledTask(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -2347,6 +2434,18 @@ export const deleteScheduledTask = /* GraphQL */ `mutation DeleteScheduledTask(
       __typename
     }
     disabled
+    pickUpSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
+    dropOffSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
     createdAt
     updatedAt
     _version
@@ -2357,8 +2456,8 @@ export const deleteScheduledTask = /* GraphQL */ `mutation DeleteScheduledTask(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteScheduledTaskMutationVariables,
-  APITypes.DeleteScheduledTaskMutation
+    APITypes.DeleteScheduledTaskMutationVariables,
+    APITypes.DeleteScheduledTaskMutation
 >;
 export const createComment = /* GraphQL */ `mutation CreateComment(
   $input: CreateCommentInput!
@@ -2382,6 +2481,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -2401,8 +2501,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateCommentMutationVariables,
-  APITypes.CreateCommentMutation
+    APITypes.CreateCommentMutationVariables,
+    APITypes.CreateCommentMutation
 >;
 export const updateComment = /* GraphQL */ `mutation UpdateComment(
   $input: UpdateCommentInput!
@@ -2426,6 +2526,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -2445,8 +2546,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateCommentMutationVariables,
-  APITypes.UpdateCommentMutation
+    APITypes.UpdateCommentMutationVariables,
+    APITypes.UpdateCommentMutation
 >;
 export const deleteComment = /* GraphQL */ `mutation DeleteComment(
   $input: DeleteCommentInput!
@@ -2470,6 +2571,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -2489,8 +2591,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteCommentMutationVariables,
-  APITypes.DeleteCommentMutation
+    APITypes.DeleteCommentMutationVariables,
+    APITypes.DeleteCommentMutation
 >;
 export const createDeliverableType = /* GraphQL */ `mutation CreateDeliverableType(
   $input: CreateDeliverableTypeInput!
@@ -2518,8 +2620,8 @@ export const createDeliverableType = /* GraphQL */ `mutation CreateDeliverableTy
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateDeliverableTypeMutationVariables,
-  APITypes.CreateDeliverableTypeMutation
+    APITypes.CreateDeliverableTypeMutationVariables,
+    APITypes.CreateDeliverableTypeMutation
 >;
 export const updateDeliverableType = /* GraphQL */ `mutation UpdateDeliverableType(
   $input: UpdateDeliverableTypeInput!
@@ -2547,8 +2649,8 @@ export const updateDeliverableType = /* GraphQL */ `mutation UpdateDeliverableTy
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateDeliverableTypeMutationVariables,
-  APITypes.UpdateDeliverableTypeMutation
+    APITypes.UpdateDeliverableTypeMutationVariables,
+    APITypes.UpdateDeliverableTypeMutation
 >;
 export const deleteDeliverableType = /* GraphQL */ `mutation DeleteDeliverableType(
   $input: DeleteDeliverableTypeInput!
@@ -2576,8 +2678,8 @@ export const deleteDeliverableType = /* GraphQL */ `mutation DeleteDeliverableTy
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteDeliverableTypeMutationVariables,
-  APITypes.DeleteDeliverableTypeMutation
+    APITypes.DeleteDeliverableTypeMutationVariables,
+    APITypes.DeleteDeliverableTypeMutation
 >;
 export const createDeliverable = /* GraphQL */ `mutation CreateDeliverable(
   $input: CreateDeliverableInput!
@@ -2668,8 +2770,8 @@ export const createDeliverable = /* GraphQL */ `mutation CreateDeliverable(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateDeliverableMutationVariables,
-  APITypes.CreateDeliverableMutation
+    APITypes.CreateDeliverableMutationVariables,
+    APITypes.CreateDeliverableMutation
 >;
 export const updateDeliverable = /* GraphQL */ `mutation UpdateDeliverable(
   $input: UpdateDeliverableInput!
@@ -2760,8 +2862,8 @@ export const updateDeliverable = /* GraphQL */ `mutation UpdateDeliverable(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateDeliverableMutationVariables,
-  APITypes.UpdateDeliverableMutation
+    APITypes.UpdateDeliverableMutationVariables,
+    APITypes.UpdateDeliverableMutation
 >;
 export const deleteDeliverable = /* GraphQL */ `mutation DeleteDeliverable(
   $input: DeleteDeliverableInput!
@@ -2852,8 +2954,8 @@ export const deleteDeliverable = /* GraphQL */ `mutation DeleteDeliverable(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteDeliverableMutationVariables,
-  APITypes.DeleteDeliverableMutation
+    APITypes.DeleteDeliverableMutationVariables,
+    APITypes.DeleteDeliverableMutation
 >;
 export const createRiderResponsibility = /* GraphQL */ `mutation CreateRiderResponsibility(
   $input: CreateRiderResponsibilityInput!
@@ -2878,8 +2980,8 @@ export const createRiderResponsibility = /* GraphQL */ `mutation CreateRiderResp
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateRiderResponsibilityMutationVariables,
-  APITypes.CreateRiderResponsibilityMutation
+    APITypes.CreateRiderResponsibilityMutationVariables,
+    APITypes.CreateRiderResponsibilityMutation
 >;
 export const updateRiderResponsibility = /* GraphQL */ `mutation UpdateRiderResponsibility(
   $input: UpdateRiderResponsibilityInput!
@@ -2904,8 +3006,8 @@ export const updateRiderResponsibility = /* GraphQL */ `mutation UpdateRiderResp
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateRiderResponsibilityMutationVariables,
-  APITypes.UpdateRiderResponsibilityMutation
+    APITypes.UpdateRiderResponsibilityMutationVariables,
+    APITypes.UpdateRiderResponsibilityMutation
 >;
 export const deleteRiderResponsibility = /* GraphQL */ `mutation DeleteRiderResponsibility(
   $input: DeleteRiderResponsibilityInput!
@@ -2930,8 +3032,8 @@ export const deleteRiderResponsibility = /* GraphQL */ `mutation DeleteRiderResp
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteRiderResponsibilityMutationVariables,
-  APITypes.DeleteRiderResponsibilityMutation
+    APITypes.DeleteRiderResponsibilityMutationVariables,
+    APITypes.DeleteRiderResponsibilityMutation
 >;
 export const registerUser = /* GraphQL */ `mutation RegisterUser(
   $name: String
@@ -3014,6 +3116,7 @@ export const registerUser = /* GraphQL */ `mutation RegisterUser(
       __typename
     }
     disabled
+    isBeingDeleted
     createdAt
     updatedAt
     _version
@@ -3023,8 +3126,8 @@ export const registerUser = /* GraphQL */ `mutation RegisterUser(
   }
 }
 ` as GeneratedMutation<
-  APITypes.RegisterUserMutationVariables,
-  APITypes.RegisterUserMutation
+    APITypes.RegisterUserMutationVariables,
+    APITypes.RegisterUserMutation
 >;
 export const registerTenant = /* GraphQL */ `mutation RegisterTenant(
   $name: String
@@ -3051,6 +3154,7 @@ export const registerTenant = /* GraphQL */ `mutation RegisterTenant(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -3068,8 +3172,8 @@ export const registerTenant = /* GraphQL */ `mutation RegisterTenant(
   }
 }
 ` as GeneratedMutation<
-  APITypes.RegisterTenantMutationVariables,
-  APITypes.RegisterTenantMutation
+    APITypes.RegisterTenantMutationVariables,
+    APITypes.RegisterTenantMutation
 >;
 export const updateUserRoles = /* GraphQL */ `mutation UpdateUserRoles($userId: ID, $roles: [Role]) {
   updateUserRoles(userId: $userId, roles: $roles) {
@@ -3147,6 +3251,7 @@ export const updateUserRoles = /* GraphQL */ `mutation UpdateUserRoles($userId: 
       __typename
     }
     disabled
+    isBeingDeleted
     createdAt
     updatedAt
     _version
@@ -3156,8 +3261,8 @@ export const updateUserRoles = /* GraphQL */ `mutation UpdateUserRoles($userId: 
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateUserRolesMutationVariables,
-  APITypes.UpdateUserRolesMutation
+    APITypes.UpdateUserRolesMutationVariables,
+    APITypes.UpdateUserRolesMutation
 >;
 export const disableUser = /* GraphQL */ `mutation DisableUser($userId: ID) {
   disableUser(userId: $userId) {
@@ -3235,6 +3340,7 @@ export const disableUser = /* GraphQL */ `mutation DisableUser($userId: ID) {
       __typename
     }
     disabled
+    isBeingDeleted
     createdAt
     updatedAt
     _version
@@ -3244,8 +3350,8 @@ export const disableUser = /* GraphQL */ `mutation DisableUser($userId: ID) {
   }
 }
 ` as GeneratedMutation<
-  APITypes.DisableUserMutationVariables,
-  APITypes.DisableUserMutation
+    APITypes.DisableUserMutationVariables,
+    APITypes.DisableUserMutation
 >;
 export const enableUser = /* GraphQL */ `mutation EnableUser($userId: ID) {
   enableUser(userId: $userId) {
@@ -3323,6 +3429,7 @@ export const enableUser = /* GraphQL */ `mutation EnableUser($userId: ID) {
       __typename
     }
     disabled
+    isBeingDeleted
     createdAt
     updatedAt
     _version
@@ -3332,8 +3439,8 @@ export const enableUser = /* GraphQL */ `mutation EnableUser($userId: ID) {
   }
 }
 ` as GeneratedMutation<
-  APITypes.EnableUserMutationVariables,
-  APITypes.EnableUserMutation
+    APITypes.EnableUserMutationVariables,
+    APITypes.EnableUserMutation
 >;
 export const updateUserEmail = /* GraphQL */ `mutation UpdateUserEmail($userId: ID, $emailAddress: AWSEmail) {
   updateUserEmail(userId: $userId, emailAddress: $emailAddress) {
@@ -3411,6 +3518,7 @@ export const updateUserEmail = /* GraphQL */ `mutation UpdateUserEmail($userId: 
       __typename
     }
     disabled
+    isBeingDeleted
     createdAt
     updatedAt
     _version
@@ -3420,8 +3528,8 @@ export const updateUserEmail = /* GraphQL */ `mutation UpdateUserEmail($userId: 
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateUserEmailMutationVariables,
-  APITypes.UpdateUserEmailMutation
+    APITypes.UpdateUserEmailMutationVariables,
+    APITypes.UpdateUserEmailMutation
 >;
 export const resetUserPassword = /* GraphQL */ `mutation ResetUserPassword($userId: ID) {
   resetUserPassword(userId: $userId) {
@@ -3430,6 +3538,42 @@ export const resetUserPassword = /* GraphQL */ `mutation ResetUserPassword($user
   }
 }
 ` as GeneratedMutation<
-  APITypes.ResetUserPasswordMutationVariables,
-  APITypes.ResetUserPasswordMutation
+    APITypes.ResetUserPasswordMutationVariables,
+    APITypes.ResetUserPasswordMutation
+>;
+export const adminDeleteRiderResponsibility = /* GraphQL */ `mutation AdminDeleteRiderResponsibility($riderResponsibilityId: ID) {
+  adminDeleteRiderResponsibility(
+    riderResponsibilityId: $riderResponsibilityId
+  ) {
+    id
+    tenantId
+    label
+    disabled
+    possibleUsers {
+      nextToken
+      startedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+    APITypes.AdminDeleteRiderResponsibilityMutationVariables,
+    APITypes.AdminDeleteRiderResponsibilityMutation
+>;
+export const adminDeleteUser = /* GraphQL */ `mutation AdminDeleteUser($userId: ID) {
+  adminDeleteUser(userId: $userId) {
+    executionArn
+    startDate
+    __typename
+  }
+}
+` as GeneratedMutation<
+    APITypes.AdminDeleteUserMutationVariables,
+    APITypes.AdminDeleteUserMutation
 >;

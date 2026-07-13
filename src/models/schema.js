@@ -88,13 +88,6 @@ export const schema = {
                                 "operations": [
                                     "read"
                                 ]
-                            },
-                            {
-                                "allow": "private",
-                                "provider": "iam",
-                                "operations": [
-                                    "read"
-                                ]
                             }
                         ]
                     }
@@ -314,6 +307,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "isBeingDeleted": {
+                    "name": "isBeingDeleted",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -365,28 +365,6 @@ export const schema = {
                                 "allow": "private",
                                 "operations": [
                                     "read"
-                                ]
-                            },
-                            {
-                                "provider": "userPools",
-                                "ownerField": "cognitoId",
-                                "allow": "owner",
-                                "operations": [
-                                    "read",
-                                    "update"
-                                ],
-                                "identityClaim": "cognito:username"
-                            },
-                            {
-                                "groupClaim": "cognito:groups",
-                                "provider": "userPools",
-                                "allow": "groups",
-                                "groups": [
-                                    "ADMIN"
-                                ],
-                                "operations": [
-                                    "read",
-                                    "update"
                                 ]
                             }
                         ]
@@ -2609,6 +2587,25 @@ export const schema = {
                 }
             }
         },
+        "StateMachineExecution": {
+            "name": "StateMachineExecution",
+            "fields": {
+                "executionArn": {
+                    "name": "executionArn",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "startDate": {
+                    "name": "startDate",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
         "Statistics": {
             "name": "Statistics",
             "fields": {
@@ -2679,5 +2676,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.4",
-    "version": "d7d2d4025ea065d2c99af6d7845afd5e"
+    "version": "ea23c7472135f07a7efd4966b35c2d76"
 };
