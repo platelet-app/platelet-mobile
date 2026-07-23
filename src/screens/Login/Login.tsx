@@ -50,9 +50,19 @@ const Login: React.FC<LoginProps> = ({ children, onChangeTeam }) => {
         };
     }, [initFunction]);
 
+    React.useEffect(() => {
+        const signOutListener = Hub.listen("auth", (hubData) => {
+            if (hubData.payload.event === "signOut") {
+                isInit.current = false;
+                initFunction();
+            }
+        });
+        return () => Hub.remove("auth", signOutListener);
+    }, [initFunction]);
+
     const HeaderWithProps = React.useCallback(
         () => <LoginHeader onChangeTeam={onChangeTeam} />,
-        [onChangeTeam]
+        [onChangeTeam],
     );
 
     const content = whoamiIsSet ? children : <></>;

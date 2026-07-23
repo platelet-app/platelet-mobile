@@ -14,6 +14,7 @@ const TaskDateTimeTextInput: React.FC<TaskDateTimeTextInputProps> = ({
     return (
         <View pointerEvents="none">
             <TextInput
+                autoComplete="off"
                 mode="outlined"
                 value={value}
                 editable={false}

@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DataStore } from "aws-amplify";
+import { deleteOldAmplifyKeysFromAsyncStorage } from "../../utilities/deleteOldAmplifyKeysFromAsyncStorage";
 
 type LoginHeaderProps = {
     onChangeTeam?: () => void;
@@ -22,6 +23,9 @@ const LoginHeader: React.FC<LoginHeaderProps> = ({ onChangeTeam }) => {
     const handleChangeTeam = React.useCallback(async () => {
         await AsyncStorage.clear();
         await DataStore.clear();
+        // in case we have lingering data in RKStorage
+        // this data might exist because of the change to the sqlite adapter
+        await deleteOldAmplifyKeysFromAsyncStorage();
         if (onChangeTeam) onChangeTeam();
     }, [onChangeTeam]);
 

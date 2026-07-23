@@ -33,6 +33,7 @@ const CommentEditDialog: React.FC<CommentEditDialogProps> = ({
                 <Dialog.Title>Edit comment</Dialog.Title>
                 <Dialog.Content>
                     <TextInput
+                        autoComplete="off"
                         key={visible ? "visible" : "hidden"}
                         placeholder="Edit comment..."
                         multiline

@@ -4,8 +4,8 @@
 
 import * as APITypes from "../API";
 type GeneratedQuery<InputType, OutputType> = string & {
-  __generatedQueryInput: InputType;
-  __generatedQueryOutput: OutputType;
+    __generatedQueryInput: InputType;
+    __generatedQueryOutput: OutputType;
 };
 
 export const getTenant = /* GraphQL */ `query GetTenant($id: ID!) {
@@ -25,6 +25,7 @@ export const getTenant = /* GraphQL */ `query GetTenant($id: ID!) {
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -66,8 +67,8 @@ export const listTenants = /* GraphQL */ `query ListTenants(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListTenantsQueryVariables,
-  APITypes.ListTenantsQuery
+    APITypes.ListTenantsQueryVariables,
+    APITypes.ListTenantsQuery
 >;
 export const syncTenants = /* GraphQL */ `query SyncTenants(
   $filter: ModelTenantFilterInput
@@ -99,8 +100,43 @@ export const syncTenants = /* GraphQL */ `query SyncTenants(
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncTenantsQueryVariables,
-  APITypes.SyncTenantsQuery
+    APITypes.SyncTenantsQueryVariables,
+    APITypes.SyncTenantsQuery
+>;
+export const getTenantByTenantName = /* GraphQL */ `query GetTenantByTenantName(
+  $name: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelTenantFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getTenantByTenantName(
+    name: $name
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      referenceIdentifier
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      tenantAdminId
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+    APITypes.GetTenantByTenantNameQueryVariables,
+    APITypes.GetTenantByTenantNameQuery
 >;
 export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
@@ -178,6 +214,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       __typename
     }
     disabled
+    isBeingDeleted
     createdAt
     updatedAt
     _version
@@ -205,6 +242,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -242,6 +280,7 @@ export const syncUsers = /* GraphQL */ `query SyncUsers(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -281,6 +320,7 @@ export const getUserByCognitoId = /* GraphQL */ `query GetUserByCognitoId(
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -294,8 +334,8 @@ export const getUserByCognitoId = /* GraphQL */ `query GetUserByCognitoId(
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetUserByCognitoIdQueryVariables,
-  APITypes.GetUserByCognitoIdQuery
+    APITypes.GetUserByCognitoIdQueryVariables,
+    APITypes.GetUserByCognitoIdQuery
 >;
 export const getPossibleRiderResponsibilities = /* GraphQL */ `query GetPossibleRiderResponsibilities($id: ID!) {
   getPossibleRiderResponsibilities(id: $id) {
@@ -313,6 +353,7 @@ export const getPossibleRiderResponsibilities = /* GraphQL */ `query GetPossible
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -343,8 +384,8 @@ export const getPossibleRiderResponsibilities = /* GraphQL */ `query GetPossible
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetPossibleRiderResponsibilitiesQueryVariables,
-  APITypes.GetPossibleRiderResponsibilitiesQuery
+    APITypes.GetPossibleRiderResponsibilitiesQueryVariables,
+    APITypes.GetPossibleRiderResponsibilitiesQuery
 >;
 export const listPossibleRiderResponsibilities = /* GraphQL */ `query ListPossibleRiderResponsibilities(
   $filter: ModelPossibleRiderResponsibilitiesFilterInput
@@ -374,8 +415,8 @@ export const listPossibleRiderResponsibilities = /* GraphQL */ `query ListPossib
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListPossibleRiderResponsibilitiesQueryVariables,
-  APITypes.ListPossibleRiderResponsibilitiesQuery
+    APITypes.ListPossibleRiderResponsibilitiesQueryVariables,
+    APITypes.ListPossibleRiderResponsibilitiesQuery
 >;
 export const syncPossibleRiderResponsibilities = /* GraphQL */ `query SyncPossibleRiderResponsibilities(
   $filter: ModelPossibleRiderResponsibilitiesFilterInput
@@ -407,8 +448,8 @@ export const syncPossibleRiderResponsibilities = /* GraphQL */ `query SyncPossib
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncPossibleRiderResponsibilitiesQueryVariables,
-  APITypes.SyncPossibleRiderResponsibilitiesQuery
+    APITypes.SyncPossibleRiderResponsibilitiesQueryVariables,
+    APITypes.SyncPossibleRiderResponsibilitiesQuery
 >;
 export const getVehicle = /* GraphQL */ `query GetVehicle($id: ID!) {
   getVehicle(id: $id) {
@@ -426,6 +467,7 @@ export const getVehicle = /* GraphQL */ `query GetVehicle($id: ID!) {
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -459,8 +501,8 @@ export const getVehicle = /* GraphQL */ `query GetVehicle($id: ID!) {
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetVehicleQueryVariables,
-  APITypes.GetVehicleQuery
+    APITypes.GetVehicleQueryVariables,
+    APITypes.GetVehicleQuery
 >;
 export const listVehicles = /* GraphQL */ `query ListVehicles(
   $filter: ModelVehicleFilterInput
@@ -491,8 +533,8 @@ export const listVehicles = /* GraphQL */ `query ListVehicles(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListVehiclesQueryVariables,
-  APITypes.ListVehiclesQuery
+    APITypes.ListVehiclesQueryVariables,
+    APITypes.ListVehiclesQuery
 >;
 export const syncVehicles = /* GraphQL */ `query SyncVehicles(
   $filter: ModelVehicleFilterInput
@@ -529,8 +571,8 @@ export const syncVehicles = /* GraphQL */ `query SyncVehicles(
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncVehiclesQueryVariables,
-  APITypes.SyncVehiclesQuery
+    APITypes.SyncVehiclesQueryVariables,
+    APITypes.SyncVehiclesQuery
 >;
 export const getVehicleAssignment = /* GraphQL */ `query GetVehicleAssignment($id: ID!) {
   getVehicleAssignment(id: $id) {
@@ -565,6 +607,7 @@ export const getVehicleAssignment = /* GraphQL */ `query GetVehicleAssignment($i
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -583,8 +626,8 @@ export const getVehicleAssignment = /* GraphQL */ `query GetVehicleAssignment($i
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetVehicleAssignmentQueryVariables,
-  APITypes.GetVehicleAssignmentQuery
+    APITypes.GetVehicleAssignmentQueryVariables,
+    APITypes.GetVehicleAssignmentQuery
 >;
 export const listVehicleAssignments = /* GraphQL */ `query ListVehicleAssignments(
   $filter: ModelVehicleAssignmentFilterInput
@@ -614,8 +657,8 @@ export const listVehicleAssignments = /* GraphQL */ `query ListVehicleAssignment
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListVehicleAssignmentsQueryVariables,
-  APITypes.ListVehicleAssignmentsQuery
+    APITypes.ListVehicleAssignmentsQueryVariables,
+    APITypes.ListVehicleAssignmentsQuery
 >;
 export const syncVehicleAssignments = /* GraphQL */ `query SyncVehicleAssignments(
   $filter: ModelVehicleAssignmentFilterInput
@@ -647,8 +690,8 @@ export const syncVehicleAssignments = /* GraphQL */ `query SyncVehicleAssignment
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncVehicleAssignmentsQueryVariables,
-  APITypes.SyncVehicleAssignmentsQuery
+    APITypes.SyncVehicleAssignmentsQueryVariables,
+    APITypes.SyncVehicleAssignmentsQuery
 >;
 export const getLocation = /* GraphQL */ `query GetLocation($id: ID!) {
   getLocation(id: $id) {
@@ -666,6 +709,7 @@ export const getLocation = /* GraphQL */ `query GetLocation($id: ID!) {
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -750,8 +794,8 @@ export const getLocation = /* GraphQL */ `query GetLocation($id: ID!) {
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetLocationQueryVariables,
-  APITypes.GetLocationQuery
+    APITypes.GetLocationQueryVariables,
+    APITypes.GetLocationQuery
 >;
 export const listLocations = /* GraphQL */ `query ListLocations(
   $filter: ModelLocationFilterInput
@@ -791,8 +835,8 @@ export const listLocations = /* GraphQL */ `query ListLocations(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListLocationsQueryVariables,
-  APITypes.ListLocationsQuery
+    APITypes.ListLocationsQueryVariables,
+    APITypes.ListLocationsQuery
 >;
 export const syncLocations = /* GraphQL */ `query SyncLocations(
   $filter: ModelLocationFilterInput
@@ -838,8 +882,8 @@ export const syncLocations = /* GraphQL */ `query SyncLocations(
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncLocationsQueryVariables,
-  APITypes.SyncLocationsQuery
+    APITypes.SyncLocationsQueryVariables,
+    APITypes.SyncLocationsQuery
 >;
 export const getTask = /* GraphQL */ `query GetTask($id: ID!) {
   getTask(id: $id) {
@@ -858,6 +902,7 @@ export const getTask = /* GraphQL */ `query GetTask($id: ID!) {
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -993,6 +1038,18 @@ export const getTask = /* GraphQL */ `query GetTask($id: ID!) {
     status
     isRiderUsingOwnVehicle
     archived
+    pickUpSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
+    dropOffSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
     updatedAt
     _version
     _deleted
@@ -1141,8 +1198,8 @@ export const listTasksByTenantId = /* GraphQL */ `query ListTasksByTenantId(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListTasksByTenantIdQueryVariables,
-  APITypes.ListTasksByTenantIdQuery
+    APITypes.ListTasksByTenantIdQueryVariables,
+    APITypes.ListTasksByTenantIdQuery
 >;
 export const tasksByStatus = /* GraphQL */ `query TasksByStatus(
   $status: TaskStatus!
@@ -1193,8 +1250,8 @@ export const tasksByStatus = /* GraphQL */ `query TasksByStatus(
   }
 }
 ` as GeneratedQuery<
-  APITypes.TasksByStatusQueryVariables,
-  APITypes.TasksByStatusQuery
+    APITypes.TasksByStatusQueryVariables,
+    APITypes.TasksByStatusQuery
 >;
 export const tasksByArchivedStatus = /* GraphQL */ `query TasksByArchivedStatus(
   $archived: Int!
@@ -1247,8 +1304,8 @@ export const tasksByArchivedStatus = /* GraphQL */ `query TasksByArchivedStatus(
   }
 }
 ` as GeneratedQuery<
-  APITypes.TasksByArchivedStatusQueryVariables,
-  APITypes.TasksByArchivedStatusQuery
+    APITypes.TasksByArchivedStatusQueryVariables,
+    APITypes.TasksByArchivedStatusQuery
 >;
 export const getTaskAssignee = /* GraphQL */ `query GetTaskAssignee($id: ID!) {
   getTaskAssignee(id: $id) {
@@ -1296,6 +1353,7 @@ export const getTaskAssignee = /* GraphQL */ `query GetTaskAssignee($id: ID!) {
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1315,8 +1373,8 @@ export const getTaskAssignee = /* GraphQL */ `query GetTaskAssignee($id: ID!) {
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetTaskAssigneeQueryVariables,
-  APITypes.GetTaskAssigneeQuery
+    APITypes.GetTaskAssigneeQueryVariables,
+    APITypes.GetTaskAssigneeQuery
 >;
 export const listTaskAssignees = /* GraphQL */ `query ListTaskAssignees(
   $filter: ModelTaskAssigneeFilterInput
@@ -1344,8 +1402,8 @@ export const listTaskAssignees = /* GraphQL */ `query ListTaskAssignees(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListTaskAssigneesQueryVariables,
-  APITypes.ListTaskAssigneesQuery
+    APITypes.ListTaskAssigneesQueryVariables,
+    APITypes.ListTaskAssigneesQuery
 >;
 export const syncTaskAssignees = /* GraphQL */ `query SyncTaskAssignees(
   $filter: ModelTaskAssigneeFilterInput
@@ -1379,8 +1437,8 @@ export const syncTaskAssignees = /* GraphQL */ `query SyncTaskAssignees(
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncTaskAssigneesQueryVariables,
-  APITypes.SyncTaskAssigneesQuery
+    APITypes.SyncTaskAssigneesQueryVariables,
+    APITypes.SyncTaskAssigneesQuery
 >;
 export const getScheduledTask = /* GraphQL */ `query GetScheduledTask($id: ID!) {
   getScheduledTask(id: $id) {
@@ -1398,6 +1456,7 @@ export const getScheduledTask = /* GraphQL */ `query GetScheduledTask($id: ID!) 
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1511,6 +1570,18 @@ export const getScheduledTask = /* GraphQL */ `query GetScheduledTask($id: ID!) 
       __typename
     }
     disabled
+    pickUpSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
+    dropOffSchedule {
+      relation
+      timePrimary
+      timeSecondary
+      __typename
+    }
     createdAt
     updatedAt
     _version
@@ -1521,8 +1592,8 @@ export const getScheduledTask = /* GraphQL */ `query GetScheduledTask($id: ID!) 
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetScheduledTaskQueryVariables,
-  APITypes.GetScheduledTaskQuery
+    APITypes.GetScheduledTaskQueryVariables,
+    APITypes.GetScheduledTaskQuery
 >;
 export const listScheduledTasks = /* GraphQL */ `query ListScheduledTasks(
   $filter: ModelScheduledTaskFilterInput
@@ -1553,8 +1624,8 @@ export const listScheduledTasks = /* GraphQL */ `query ListScheduledTasks(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListScheduledTasksQueryVariables,
-  APITypes.ListScheduledTasksQuery
+    APITypes.ListScheduledTasksQueryVariables,
+    APITypes.ListScheduledTasksQuery
 >;
 export const syncScheduledTasks = /* GraphQL */ `query SyncScheduledTasks(
   $filter: ModelScheduledTaskFilterInput
@@ -1591,8 +1662,8 @@ export const syncScheduledTasks = /* GraphQL */ `query SyncScheduledTasks(
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncScheduledTasksQueryVariables,
-  APITypes.SyncScheduledTasksQuery
+    APITypes.SyncScheduledTasksQueryVariables,
+    APITypes.SyncScheduledTasksQuery
 >;
 export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
   getComment(id: $id) {
@@ -1613,6 +1684,7 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
       dateOfBirth
       riderResponsibility
       disabled
+      isBeingDeleted
       createdAt
       updatedAt
       _version
@@ -1632,8 +1704,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetCommentQueryVariables,
-  APITypes.GetCommentQuery
+    APITypes.GetCommentQueryVariables,
+    APITypes.GetCommentQuery
 >;
 export const listComments = /* GraphQL */ `query ListComments(
   $filter: ModelCommentFilterInput
@@ -1663,8 +1735,8 @@ export const listComments = /* GraphQL */ `query ListComments(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListCommentsQueryVariables,
-  APITypes.ListCommentsQuery
+    APITypes.ListCommentsQueryVariables,
+    APITypes.ListCommentsQuery
 >;
 export const syncComments = /* GraphQL */ `query SyncComments(
   $filter: ModelCommentFilterInput
@@ -1700,8 +1772,8 @@ export const syncComments = /* GraphQL */ `query SyncComments(
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncCommentsQueryVariables,
-  APITypes.SyncCommentsQuery
+    APITypes.SyncCommentsQueryVariables,
+    APITypes.SyncCommentsQuery
 >;
 export const getDeliverableType = /* GraphQL */ `query GetDeliverableType($id: ID!) {
   getDeliverableType(id: $id) {
@@ -1726,8 +1798,8 @@ export const getDeliverableType = /* GraphQL */ `query GetDeliverableType($id: I
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetDeliverableTypeQueryVariables,
-  APITypes.GetDeliverableTypeQuery
+    APITypes.GetDeliverableTypeQueryVariables,
+    APITypes.GetDeliverableTypeQuery
 >;
 export const listDeliverableTypes = /* GraphQL */ `query ListDeliverableTypes(
   $filter: ModelDeliverableTypeFilterInput
@@ -1756,8 +1828,8 @@ export const listDeliverableTypes = /* GraphQL */ `query ListDeliverableTypes(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListDeliverableTypesQueryVariables,
-  APITypes.ListDeliverableTypesQuery
+    APITypes.ListDeliverableTypesQueryVariables,
+    APITypes.ListDeliverableTypesQuery
 >;
 export const syncDeliverableTypes = /* GraphQL */ `query SyncDeliverableTypes(
   $filter: ModelDeliverableTypeFilterInput
@@ -1792,8 +1864,8 @@ export const syncDeliverableTypes = /* GraphQL */ `query SyncDeliverableTypes(
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncDeliverableTypesQueryVariables,
-  APITypes.SyncDeliverableTypesQuery
+    APITypes.SyncDeliverableTypesQueryVariables,
+    APITypes.SyncDeliverableTypesQuery
 >;
 export const getDeliverable = /* GraphQL */ `query GetDeliverable($id: ID!) {
   getDeliverable(id: $id) {
@@ -1881,8 +1953,8 @@ export const getDeliverable = /* GraphQL */ `query GetDeliverable($id: ID!) {
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetDeliverableQueryVariables,
-  APITypes.GetDeliverableQuery
+    APITypes.GetDeliverableQueryVariables,
+    APITypes.GetDeliverableQuery
 >;
 export const listDeliverables = /* GraphQL */ `query ListDeliverables(
   $filter: ModelDeliverableFilterInput
@@ -1913,8 +1985,8 @@ export const listDeliverables = /* GraphQL */ `query ListDeliverables(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListDeliverablesQueryVariables,
-  APITypes.ListDeliverablesQuery
+    APITypes.ListDeliverablesQueryVariables,
+    APITypes.ListDeliverablesQuery
 >;
 export const syncDeliverables = /* GraphQL */ `query SyncDeliverables(
   $filter: ModelDeliverableFilterInput
@@ -1951,8 +2023,8 @@ export const syncDeliverables = /* GraphQL */ `query SyncDeliverables(
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncDeliverablesQueryVariables,
-  APITypes.SyncDeliverablesQuery
+    APITypes.SyncDeliverablesQueryVariables,
+    APITypes.SyncDeliverablesQuery
 >;
 export const getRiderResponsibility = /* GraphQL */ `query GetRiderResponsibility($id: ID!) {
   getRiderResponsibility(id: $id) {
@@ -1974,8 +2046,8 @@ export const getRiderResponsibility = /* GraphQL */ `query GetRiderResponsibilit
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetRiderResponsibilityQueryVariables,
-  APITypes.GetRiderResponsibilityQuery
+    APITypes.GetRiderResponsibilityQueryVariables,
+    APITypes.GetRiderResponsibilityQuery
 >;
 export const listRiderResponsibilities = /* GraphQL */ `query ListRiderResponsibilities(
   $filter: ModelRiderResponsibilityFilterInput
@@ -2005,8 +2077,8 @@ export const listRiderResponsibilities = /* GraphQL */ `query ListRiderResponsib
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListRiderResponsibilitiesQueryVariables,
-  APITypes.ListRiderResponsibilitiesQuery
+    APITypes.ListRiderResponsibilitiesQueryVariables,
+    APITypes.ListRiderResponsibilitiesQuery
 >;
 export const syncRiderResponsibilities = /* GraphQL */ `query SyncRiderResponsibilities(
   $filter: ModelRiderResponsibilityFilterInput
@@ -2038,22 +2110,22 @@ export const syncRiderResponsibilities = /* GraphQL */ `query SyncRiderResponsib
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncRiderResponsibilitiesQueryVariables,
-  APITypes.SyncRiderResponsibilitiesQuery
+    APITypes.SyncRiderResponsibilitiesQueryVariables,
+    APITypes.SyncRiderResponsibilitiesQuery
 >;
 export const profilePictureUploadURL = /* GraphQL */ `query ProfilePictureUploadURL($userId: ID!) {
   profilePictureUploadURL(userId: $userId)
 }
 ` as GeneratedQuery<
-  APITypes.ProfilePictureUploadURLQueryVariables,
-  APITypes.ProfilePictureUploadURLQuery
+    APITypes.ProfilePictureUploadURLQueryVariables,
+    APITypes.ProfilePictureUploadURLQuery
 >;
 export const profilePictureURL = /* GraphQL */ `query ProfilePictureURL($userId: ID!, $width: Int, $height: Int) {
   profilePictureURL(userId: $userId, width: $width, height: $height)
 }
 ` as GeneratedQuery<
-  APITypes.ProfilePictureURLQueryVariables,
-  APITypes.ProfilePictureURLQuery
+    APITypes.ProfilePictureURLQueryVariables,
+    APITypes.ProfilePictureURLQuery
 >;
 export const sendUserFeedback = /* GraphQL */ `query SendUserFeedback($emailAddress: AWSEmail, $body: String) {
   sendUserFeedback(emailAddress: $emailAddress, body: $body) {
@@ -2062,6 +2134,17 @@ export const sendUserFeedback = /* GraphQL */ `query SendUserFeedback($emailAddr
   }
 }
 ` as GeneratedQuery<
-  APITypes.SendUserFeedbackQueryVariables,
-  APITypes.SendUserFeedbackQuery
+    APITypes.SendUserFeedbackQueryVariables,
+    APITypes.SendUserFeedbackQuery
+>;
+export const userTakeOutData = /* GraphQL */ `query UserTakeOutData($userId: ID) {
+  userTakeOutData(userId: $userId) {
+    executionArn
+    startDate
+    __typename
+  }
+}
+` as GeneratedQuery<
+    APITypes.UserTakeOutDataQueryVariables,
+    APITypes.UserTakeOutDataQuery
 >;
