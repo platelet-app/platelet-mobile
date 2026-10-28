@@ -135,8 +135,8 @@ function* getWhoami() {
                             model,
                             () => (m) =>
                                 m.and((m) => [
-                                    m.tenantId.eq(tenantId),
                                     m.archived.eq(0),
+                                    m.tenantId.eq(tenantId),
                                 ])
                         )
                     ),
