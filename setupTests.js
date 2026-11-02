@@ -19,6 +19,16 @@ jest.mock("@sentry/react-native", () => ({
 jest.mock("@aws-amplify/datastore-storage-adapter/SQLiteAdapter", () => ({
     SQLiteAdapter: undefined,
 }));
+// the skeleton shimmer loops forever on real timers, which can fire after a
+// test file's environment is torn down and crash the worker with
+// "_bezier is not a function"
+jest.mock("react-content-loader/native", () => {
+    const React = require("react");
+    const actual = jest.requireActual("react-content-loader/native");
+    const ContentLoader = (props) =>
+        React.createElement(actual.default, { ...props, animate: false });
+    return { ...actual, __esModule: true, default: ContentLoader };
+});
 
 const RESET_MODULE_EXCEPTIONS = ["react", "react-redux"];
 
