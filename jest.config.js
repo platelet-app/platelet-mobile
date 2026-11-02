@@ -12,7 +12,14 @@ module.exports = {
             transform: {
                 "^.+\\.[jt]sx?$": [
                     "babel-jest",
-                    { caller: { preserveEnvVars: true } },
+                    {
+                        caller: {
+                            name: "metro",
+                            bundler: "metro",
+                            platform: "ios",
+                            preserveEnvVars: true,
+                        },
+                    },
                 ],
             },
         },
@@ -28,7 +35,14 @@ module.exports = {
             transform: {
                 "^.+\\.[jt]sx?$": [
                     "babel-jest",
-                    { caller: { preserveEnvVars: true } },
+                    {
+                        caller: {
+                            name: "metro",
+                            bundler: "metro",
+                            platform: "android",
+                            preserveEnvVars: true,
+                        },
+                    },
                 ],
             },
         },
